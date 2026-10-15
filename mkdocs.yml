@@ -1,32 +1,66 @@
-site_name: DB Tutorial
+site_name: Бази даних
+site_description: Навчальний курс «Бази даних» з прикладами на Microsoft SQL Server
 site_url: https://shpil1993.github.io/DBTutorial/
 repo_url: https://github.com/shpil1993/DBTutorial
 
 theme:
   name: material
+  language: uk
   features:
     - navigation.sections
     - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - toc.follow
     - search.highlight
     - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
   palette:
     - scheme: default
       toggle:
         icon: material/brightness-7
-        name: Switch to dark mode
+        name: Темна тема
     - scheme: slate
       toggle:
         icon: material/brightness-4
-        name: Switch to light mode
+        name: Світла тема
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
   - tables
+  - footnotes
+  - def_list
   - toc:
       permalink: true
-  - pymdownx.highlight
-  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: [docs]
+      check_paths: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Home: index.md
-  - Lesson 1 - Getting Started: lesson1.md
+  - Головна: index.md
+  - Тестова база даних: database.md
+  - "Модуль 1. Основи проектування БД":
+      - "Тема 1. Бази та банки даних": module1/topic1.md
+      - "Тема 2. Інфологічна модель": module1/topic2.md
+      - "Тема 3. Моделі даних": module1/topic3.md
+      - "Тема 4. Проектування реляційних БД": module1/topic4.md
+      - "Тема 5. Фізична організація БД": module1/topic5.md
+      - "Тема 6. Організація баз знань": module1/topic6.md
+  - "Модуль 2. Запити, транзакції, розподілені БД":
+      - "Тема 7. Мови запитів": module2/topic7.md
+      - "Тема 8. Управління транзакціями": module2/topic8.md
+      - "Тема 9. Розподілені бази даних": module2/topic9.md
