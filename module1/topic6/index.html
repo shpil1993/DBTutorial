@@ -1,0 +1,2372 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Навчальний курс «Бази даних» з прикладами на Microsoft SQL Server">
+      
+      
+      
+        <link rel="canonical" href="https://shpil1993.github.io/DBTutorial/module1/topic6/">
+      
+      
+        <link rel="prev" href="../topic5/">
+      
+      
+        <link rel="next" href="../../module2/topic7/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Тема 6. Організація баз знань - Бази даних</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="Бази даних" class="md-header__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Бази даних
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Тема 6. Організація баз знань
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Бази даних" class="md-nav__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Бази даних
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тестова база даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 1. Основи проектування БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 1. Основи проектування БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 1. Бази та банки даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 2. Інфологічна модель
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 3. Моделі даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 4. Проектування реляційних БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 5. Фізична організація БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 6. Організація баз знань
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 6. Організація баз знань
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Поняття експертних систем
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1. Поняття експертних систем">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Структура експертної системи
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Отримання і формалізація знань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. Отримання і формалізація знань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дерево рішень задачі
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Формування правил
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Представлення знань з використанням логіки предикатів
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Семантичні мережі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. Семантичні мережі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Класифікація семантичних відношень
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Продукційні моделі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5. Продукційні моделі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Прямий ланцюжок міркувань (від фактів до цілі)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зворотний ланцюжок міркувань (від цілі до фактів)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. Подання знань із застосуванням фреймів
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6. Подання знань із застосуванням фреймів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Структура фрейму
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7. Стратегії пошуку в системах обробки знань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7. Стратегії пошуку в системах обробки знань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Карта доріг і дерево пошуку
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пошук у ширину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пошук у глибину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hill-climbing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод «піднімання вгору» (hill climbing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8. Нечіткі множини в системах баз знань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.8. Нечіткі множини в системах баз знань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Операції над нечіткими множинами
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Нечітка фільтрація і вибір
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/topic7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 7. Мови запитів
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/topic8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 8. Управління транзакціями
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/topic9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 9. Розподілені бази даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Поняття експертних систем
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1. Поняття експертних систем">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Структура експертної системи
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Отримання і формалізація знань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. Отримання і формалізація знань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дерево рішень задачі
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Формування правил
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Представлення знань з використанням логіки предикатів
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Семантичні мережі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. Семантичні мережі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Класифікація семантичних відношень
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Продукційні моделі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5. Продукційні моделі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Прямий ланцюжок міркувань (від фактів до цілі)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зворотний ланцюжок міркувань (від цілі до фактів)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. Подання знань із застосуванням фреймів
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6. Подання знань із застосуванням фреймів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Структура фрейму
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7. Стратегії пошуку в системах обробки знань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7. Стратегії пошуку в системах обробки знань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Карта доріг і дерево пошуку
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пошук у ширину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пошук у глибину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hill-climbing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод «піднімання вгору» (hill climbing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8. Нечіткі множини в системах баз знань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.8. Нечіткі множини в системах баз знань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Операції над нечіткими множинами
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Нечітка фільтрація і вибір
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="6">Тема 6. Організація баз знань<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Підготовка</p>
+<p>Приклади цієї теми використовують схему <code>kb</code>. Виконайте скрипт
+<a href="../../sql/03_knowledge_base.sql">03_knowledge_base.sql</a>, якщо ще цього не зробили.</p>
+</div>
+<h2 id="61">6.1. Поняття експертних систем<a class="headerlink" href="#61" title="Permanent link">&para;</a></h2>
+<p><strong>Знання</strong> — це закономірності предметної області (принципи, зв'язки, правила), отримані
+в результаті практичної діяльності та професійного досвіду, які дозволяють ставити й
+розв'язувати задачі. На відміну від даних, знання дають змогу <strong>виводити</strong> нову інформацію.</p>
+<p><strong>Експертна система (ЕС)</strong> — програмна система, що використовує знання експертів для
+розв'язання задач у вузькій предметній області на рівні фахівця (діагностика,
+прогнозування, планування, консультування). Класичні приклади: MYCIN (медична
+діагностика), DENDRAL (хімія), XCON (конфігурування комп'ютерів).</p>
+<p><strong>Система обробки знань (СОЗ)</strong> — загальна назва систем, що зберігають знання та
+виконують над ними логічне виведення.</p>
+<h3 id="_1">Структура експертної системи<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TB
+    U(["Користувач"]) &lt;--&gt; UI["Інтерфейс користувача"]
+    E(["Експерт"]) &lt;--&gt; KA["Підсистема набуття знань"]
+    KE(["Інженер зі знань"]) &lt;--&gt; KA
+    UI &lt;--&gt; IE["Машина логічного виведення&lt;br/&gt;(вирішувач)"]
+    UI &lt;--&gt; EX["Підсистема пояснень"]
+    IE &lt;--&gt; KB[("База знань&lt;br/&gt;(правила, фрейми, мережі)")]
+    IE &lt;--&gt; WM[("Робоча пам'ять&lt;br/&gt;(факти поточної задачі)")]
+    KA --&gt; KB
+    EX &lt;--&gt; IE</code></pre>
+<ul>
+<li><strong>База знань</strong> — довготривалі знання про предметну область (правила, фрейми).</li>
+<li><strong>Робоча пам'ять</strong> (база даних ЕС) — факти конкретної задачі, що розв'язується.</li>
+<li><strong>Машина виведення</strong> — застосовує знання до фактів і отримує нові факти.</li>
+<li><strong>Підсистема пояснень</strong> — відповідає на питання «як отримано висновок?» і «чому
+  задається це питання?».</li>
+<li><strong>Підсистема набуття знань</strong> — інструменти для поповнення та коригування бази знань.</li>
+</ul>
+<h2 id="62">6.2. Отримання і формалізація знань<a class="headerlink" href="#62" title="Permanent link">&para;</a></h2>
+<p>Етапи роботи <strong>інженера зі знань</strong>:</p>
+<ol>
+<li><strong>Ідентифікація</strong> — визначення задачі, джерел знань, учасників.</li>
+<li><strong>Отримання (виявлення) знань</strong> — інтерв'ю з експертами, аналіз документів,
+   спостереження, анкетування, машинне навчання на даних.</li>
+<li><strong>Структурування</strong> — виділення понять, зв'язків, стратегій прийняття рішень.</li>
+<li><strong>Формалізація</strong> — запис знань мовою подання знань (логіка, правила, фрейми, мережі).</li>
+<li><strong>Реалізація і тестування</strong> прототипу ЕС.</li>
+</ol>
+<h3 id="_2">Дерево рішень задачі<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>Дерево рішень</strong> — зручна форма структурування знань експерта: внутрішні вузли —
+перевірки умов, гілки — результати перевірок, листки — рішення.
+Експерт деканату описує призначення стипендії так:</p>
+<pre class="mermaid"><code>flowchart TB
+    Q1{"Навчається&lt;br/&gt;за бюджетом?"} -- ні --&gt; R1["Стипендія не призначається"]
+    Q1 -- так --&gt; Q2{"Є незадовільні&lt;br/&gt;оцінки?"}
+    Q2 -- так --&gt; R2["Стипендія не призначається,&lt;br/&gt;група ризику"]
+    Q2 -- ні --&gt; Q3{"Середній бал ≥ 90?"}
+    Q3 -- так --&gt; R3["Підвищена стипендія"]
+    Q3 -- ні --&gt; Q4{"Середній бал ≥ 75?"}
+    Q4 -- так --&gt; R4["Звичайна стипендія"]
+    Q4 -- ні --&gt; R5["Стипендія не призначається"]</code></pre>
+<h3 id="_3">Формування правил<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Кожен шлях від кореня до листка дерева рішень — це <strong>правило</strong> «ЯКЩО умови ТО висновок»:</p>
+<ul>
+<li>ЯКЩО контракт ТО стипендії немає;</li>
+<li>ЯКЩО бюджет І є незадовільні ТО стипендії немає, група ризику;</li>
+<li>ЯКЩО бюджет І немає незадовільних І бал ≥ 90 ТО підвищена стипендія;</li>
+<li>…</li>
+</ul>
+<p>Дерево рішень безпосередньо перекладається у вираз <code>CASE</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">WITH</span><span class="w"> </span><span class="n">Perf</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsContract</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">           </span><span class="k">AVG</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="w">          </span><span class="k">AS</span><span class="w"> </span><span class="n">AvgScore</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">           </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Fails</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsContract</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">AvgScore</span><span class="p">,</span><span class="w"> </span><span class="n">Fails</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">       </span><span class="k">CASE</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">           </span><span class="k">WHEN</span><span class="w"> </span><span class="n">IsContract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="k">THEN</span><span class="w"> </span><span class="n">N</span><span class="s1">'не призначається (контракт)'</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">           </span><span class="k">WHEN</span><span class="w"> </span><span class="n">Fails</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w">       </span><span class="k">THEN</span><span class="w"> </span><span class="n">N</span><span class="s1">'не призначається, група ризику'</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">           </span><span class="k">WHEN</span><span class="w"> </span><span class="n">AvgScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">90</span><span class="w">  </span><span class="k">THEN</span><span class="w"> </span><span class="n">N</span><span class="s1">'підвищена'</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">           </span><span class="k">WHEN</span><span class="w"> </span><span class="n">AvgScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">75</span><span class="w">  </span><span class="k">THEN</span><span class="w"> </span><span class="n">N</span><span class="s1">'звичайна'</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">           </span><span class="k">ELSE</span><span class="w">                      </span><span class="n">N</span><span class="s1">'не призначається (низький бал)'</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">       </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Decision</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Perf</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">LastName</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="63">6.3. Представлення знань з використанням логіки предикатів<a class="headerlink" href="#63" title="Permanent link">&para;</a></h2>
+<p><strong>Предикат</strong> — функція, що повертає «істина» або «хибність»: <code>Студент(x)</code>,
+<code>Навчається(x, g)</code>, <code>Оцінка(x, d, b)</code>.</p>
+<p><strong>Предикатна формула</strong> будується з предикатів за допомогою логічних зв'язок
+(∧ «і», ∨ «або», ¬ «не», → «якщо…то») і <strong>кванторів</strong> ∀ («для всіх») та ∃ («існує»).</p>
+<p>Приклади знань у вигляді формул:</p>
+<ul>
+<li>∀x (Студент(x) → Людина(x)) — кожен студент є людиною;</li>
+<li>∀x (Відмінник(x) ↔ Студент(x) ∧ ∀d ∀b (Оцінка(x, d, b) → b ≥ 90)) — відмінник має всі оцінки ≥ 90;</li>
+<li>∀x ∀z (Вимагає(x, z) ← ∃y (Вимагає(x, y) ∧ Вимагає(y, z))) — транзитивність пререквізитів.</li>
+</ul>
+<p>Реляційна БД — це, по суті, набір істинних фактів (кожен рядок — істинний предикат), а
+SQL — мова логіки предикатів першого порядку: ∃ ↔ <code>EXISTS</code>, ∀ ↔ <code>NOT EXISTS (... NOT ...)</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- ∃: студенти, які мають хоча б одну оцінку A (Score &gt;= 90)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">90</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">-- ∀: студенти, у яких УСІ оцінки &gt;= 65 (немає жодної оцінки &lt; 65)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">-- ∀d (Оцінка(x,d,b) → b &gt;= 65)  ≡  ¬∃d (Оцінка(x,d,b) ∧ b &lt; 65)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">65</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="64">6.4. Семантичні мережі<a class="headerlink" href="#64" title="Permanent link">&para;</a></h2>
+<p><strong>Семантична мережа</strong> — орієнтований граф, вершини якого — <strong>поняття</strong> (об'єкти,
+події, властивості), а дуги — <strong>семантичні відношення</strong> між ними.</p>
+<h3 id="_4">Класифікація семантичних відношень<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Група</th>
+<th>Відношення</th>
+<th>Приклад</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Класифікаційні</td>
+<td><strong>is_a</strong> («є», «є різновидом»), <strong>instance_of</strong> («є екземпляром»)</td>
+<td>Студент is_a Людина</td>
+</tr>
+<tr>
+<td>Агрегаційні</td>
+<td><strong>part_of</strong> / <strong>has_part</strong> («є частиною» / «має частину»)</td>
+<td>Група part_of Кафедра</td>
+</tr>
+<tr>
+<td>Атрибутивні</td>
+<td><strong>has_property</strong> («має властивість»)</td>
+<td>Студент has_property Середній бал</td>
+</tr>
+<tr>
+<td>Функціональні</td>
+<td>дієслівні: <strong>teaches</strong>, <strong>studies</strong>, <strong>works_at</strong></td>
+<td>Викладач teaches Дисципліна</td>
+</tr>
+<tr>
+<td>Кількісні</td>
+<td>більше, менше, дорівнює</td>
+<td>Кредити(БД) &gt; Кредити(Фінанси)</td>
+</tr>
+<tr>
+<td>Просторові</td>
+<td>далеко, поруч, над, під</td>
+<td>Корпус 1 поруч з Корпусом 2</td>
+</tr>
+<tr>
+<td>Часові</td>
+<td>раніше, пізніше, під час</td>
+<td>Алгоритми раніше ШІ</td>
+</tr>
+<tr>
+<td>Логічні</td>
+<td>і, або, не</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart LR
+    S["Студент"] -- is_a --&gt; L["Людина"]
+    T["Викладач"] -- is_a --&gt; L
+    S -- part_of --&gt; G["Група"]
+    G -- part_of --&gt; K["Кафедра"]
+    K -- part_of --&gt; F["Факультет"]
+    F -- part_of --&gt; U["Університет"]
+    T -- works_at --&gt; K
+    T -- teaches --&gt; D["Дисципліна"]
+    S -- studies --&gt; D</code></pre>
+<p>Мережа зберігається в графових таблицях <code>kb.Concept</code> (вершини) і <code>kb.Link</code> (дуги).
+Пошук у семантичній мережі — це пошук зразка (підграфа) оператором <code>MATCH</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Усі зв'язки поняття «Студент»</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Subject</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">RelType</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Relation</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">Object</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Link</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">MATCH</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Студент'</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1">-- Зразок: «хто викладає те, що вивчає студент?»</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Who</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">What</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Link</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">l1</span><span class="p">,</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Link</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">l2</span><span class="p">,</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">MATCH</span><span class="p">(</span><span class="n">s</span><span class="o">-</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">d</span><span class="o">&lt;-</span><span class="p">(</span><span class="n">l2</span><span class="p">)</span><span class="o">-</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Студент'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">l1</span><span class="p">.</span><span class="n">RelType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'studies'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">l2</span><span class="p">.</span><span class="n">RelType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'teaches'</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1">-- Транзитивне виведення по part_of: частиною чого (на будь-якому рівні) є Група?</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">       </span><span class="n">STRING_AGG</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">' → '</span><span class="p">)</span><span class="w"> </span><span class="n">WITHIN</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="p">(</span><span class="n">GRAPH</span><span class="w"> </span><span class="n">PATH</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PartOfChain</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">     </span><span class="n">kb</span><span class="p">.</span><span class="n">Link</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">PATH</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">l</span><span class="p">,</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">     </span><span class="n">kb</span><span class="p">.</span><span class="n">Concept</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">PATH</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">x</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">MATCH</span><span class="p">(</span><span class="n">SHORTEST_PATH</span><span class="p">(</span><span class="k">g</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="p">))</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Група'</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат останнього запиту</summary>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>PartOfChain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Група</td>
+<td>Кафедра</td>
+</tr>
+<tr>
+<td>Група</td>
+<td>Кафедра → Факультет</td>
+</tr>
+<tr>
+<td>Група</td>
+<td>Кафедра → Факультет → Університет</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="65">6.5. Продукційні моделі<a class="headerlink" href="#65" title="Permanent link">&para;</a></h2>
+<p><strong>Продукційна модель</strong> подає знання у вигляді правил-<strong>продукцій</strong>:</p>
+<blockquote>
+<p><strong>ЯКЩО</strong> умова (антецедент) <strong>ТО</strong> дія або висновок (консеквент)</p>
+</blockquote>
+<p>Продукційна система складається з <strong>бази правил</strong>, <strong>робочої пам'яті</strong> (фактів) і
+<strong>інтерпретатора правил</strong>. Цикл роботи інтерпретатора: <em>зіставлення</em> (знайти правила,
+умови яких виконуються) → <em>вибір</em> (розв'язання конфліктів) → <em>виконання</em> (додати висновок у
+робочу пам'ять) → повтор, доки нові факти з'являються.</p>
+<p>База правил у <code>kb.Rule</code> / <code>kb.RuleCondition</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RuleId</span><span class="p">,</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">       </span><span class="n">N</span><span class="s1">'ЯКЩО '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">STRING_AGG</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">FactCode</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)),</span><span class="w"> </span><span class="n">N</span><span class="s1">' І '</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' ТО '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ConclusionCode</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">RuleText</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">       </span><span class="n">r</span><span class="p">.</span><span class="n">Certainty</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.[</span><span class="k">Rule</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">RuleCondition</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">RuleId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RuleId</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RuleId</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ConclusionCode</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">Certainty</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RuleId</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">RuleId</th>
+<th>RuleText</th>
+<th style="text-align: right;">Certainty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>ЯКЩО avg_ge_90 І no_fails ТО excellent</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>ЯКЩО avg_ge_75 І budget І no_fails ТО scholarship</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>ЯКЩО excellent І scholarship І social_activity ТО high_scholarship</td>
+<td style="text-align: right;">0.90</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>ЯКЩО has_fails ТО risk</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="_5">Прямий ланцюжок міркувань (від фактів до цілі)<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Спочатку заповнимо <strong>робочу пам'ять</strong> вихідними фактами, обчисленими з БД:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="p">(</span><span class="w">                 </span><span class="c1">-- робоча пам'ять</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">StudentId</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">FactCode</span><span class="w">  </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">DATABASE_DEFAULT</span><span class="p">,</span><span class="w">   </span><span class="c1">-- tempdb може мати інше правило сортування</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">RuleId</span><span class="w">    </span><span class="nb">INT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">            </span><span class="c1">-- яким правилом отримано (NULL — вихідний факт)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FactCode</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">);</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">WITH</span><span class="w"> </span><span class="n">Perf</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsContract</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">           </span><span class="k">AVG</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="w">           </span><span class="k">AS</span><span class="w"> </span><span class="n">AvgScore</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">           </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Fails</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsContract</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FactCode</span><span class="p">)</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">FactCode</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Perf</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="p">(</span><span class="k">VALUES</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">AvgScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">'avg_ge_90'</span><span class="w"> </span><span class="k">END</span><span class="p">),</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">AvgScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">75</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">'avg_ge_75'</span><span class="w"> </span><span class="k">END</span><span class="p">),</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">Fails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">'no_fails'</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">'has_fails'</span><span class="w"> </span><span class="k">END</span><span class="p">),</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">IsContract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">'budget'</span><span class="w"> </span><span class="k">END</span><span class="p">)</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">FactCode</span><span class="p">)</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">FactCode</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="c1">-- Дані опитування: хто бере участь у громадському житті</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FactCode</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">'social_activity'</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="s1">'social_activity'</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="s1">'social_activity'</span><span class="p">);</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="c1">-- Щоб побачити ланцюжок із кількох кроків, додамо факт від експерта:</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="c1">-- студентку Яковенко (12) атестовано як відмінницю за результатами олімпіади</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FactCode</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="s1">'avg_ge_90'</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Машина прямого виведення</strong>: на кожній ітерації додаємо висновки всіх правил, усі
+умови яких уже є в робочій пам'яті; зупиняємося, коли нових фактів немає.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">step</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">added</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">WHILE</span><span class="w"> </span><span class="o">@</span><span class="n">added</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">BEGIN</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">step</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FactCode</span><span class="p">,</span><span class="w"> </span><span class="n">RuleId</span><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ConclusionCode</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RuleId</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">w</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.[</span><span class="k">Rule</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">x</span><span class="w">              </span><span class="c1">-- висновку ще немає</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">                      </span><span class="k">WHERE</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">FactCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ConclusionCode</span><span class="p">)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">RuleCondition</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w">  </span><span class="c1">-- і всі умови виконані</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">                      </span><span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">RuleId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">RuleId</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">                        </span><span class="k">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">y</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">                                        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">FactCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">FactCode</span><span class="p">));</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">added</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@@</span><span class="n">ROWCOUNT</span><span class="p">;</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="n">PRINT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">N</span><span class="s1">'Крок '</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">step</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">': нових фактів — '</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">added</span><span class="p">);</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="c1">-- Підсистема пояснень: які висновки і якими правилами отримано</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">FactCode</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">RuleId</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">w</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">StudentId</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Fact</span><span class="w">     </span><span class="k">AS</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">FactCode</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">FactCode</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">RuleId</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">RuleId</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Крок 1: нових фактів — 9
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Крок 2: нових фактів — 1      ← правило 3 спрацювало на висновках кроку 1
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Крок 3: нових фактів — 0
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FactCode</th>
+<th>Description</th>
+<th style="text-align: right;">RuleId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Гончаренко</td>
+<td>risk</td>
+<td>Група ризику (потребує консультацій)</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>Захарченко</td>
+<td>risk</td>
+<td>Група ризику (потребує консультацій)</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>Іваненко</td>
+<td>risk</td>
+<td>Група ризику (потребує консультацій)</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>Петренко</td>
+<td>risk</td>
+<td>Група ризику (потребує консультацій)</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>Сидоренко</td>
+<td>risk</td>
+<td>Група ризику (потребує консультацій)</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>Федоренко</td>
+<td>scholarship</td>
+<td>Має право на академічну стипендію</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Харченко</td>
+<td>scholarship</td>
+<td>Має право на академічну стипендію</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Яковенко</td>
+<td>excellent</td>
+<td>Відмінник</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td>Яковенко</td>
+<td>scholarship</td>
+<td>Має право на академічну стипендію</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>Яковенко</td>
+<td>high_scholarship</td>
+<td>Має право на підвищену стипендію</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="_6">Зворотний ланцюжок міркувань (від цілі до фактів)<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>При <strong>зворотному</strong> виведенні машина починає з <strong>гіпотези</strong> (цілі) і шукає правила, що її
+доводять; умови цих правил стають новими <strong>підцілями</strong>, і так рекурсивно, доки не дійдемо
+до відомих фактів. Так працювала MYCIN. Це ефективніше, коли цілей мало, а фактів багато.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Prove</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="o">@</span><span class="n">StudentId</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="o">@</span><span class="n">Goal</span><span class="w">      </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="o">@</span><span class="k">Result</span><span class="w">    </span><span class="nb">BIT</span><span class="w"> </span><span class="k">OUTPUT</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="o">@</span><span class="k">Level</span><span class="w">     </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">AS</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">BEGIN</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">NOCOUNT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">indent</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">REPLICATE</span><span class="p">(</span><span class="n">N</span><span class="s1">'    '</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="k">Level</span><span class="p">);</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">StudentId</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">FactCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="p">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="k">BEGIN</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">        </span><span class="n">PRINT</span><span class="w"> </span><span class="o">@</span><span class="n">indent</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' — відомий факт ✔'</span><span class="p">;</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="k">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span><span class="k">RETURN</span><span class="p">;</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="k">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Cond</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span><span class="w"> </span><span class="o">@</span><span class="n">Ok</span><span class="w"> </span><span class="nb">BIT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Sub</span><span class="w"> </span><span class="nb">BIT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">NextLevel</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">Level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="c1">-- перебираємо правила, висновок яких збігається з ціллю</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">    </span><span class="n">WHILE</span><span class="w"> </span><span class="o">@</span><span class="k">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">    </span><span class="k">BEGIN</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">RuleId</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.[</span><span class="k">Rule</span><span class="p">]</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ConclusionCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">RuleId</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="p">;</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">BREAK</span><span class="p">;</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">        </span><span class="n">PRINT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="o">@</span><span class="n">indent</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">' ← правило '</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'?'</span><span class="p">);</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">Ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Cond</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">;</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">        </span><span class="c1">-- кожна умова правила стає підціллю</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">        </span><span class="n">WHILE</span><span class="w"> </span><span class="o">@</span><span class="n">Ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="w">        </span><span class="k">BEGIN</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="w">            </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">Cond</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">FactCode</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">RuleCondition</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">RuleId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">FactCode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">@</span><span class="n">Cond</span><span class="p">;</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">            </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Cond</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">BREAK</span><span class="p">;</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="w">            </span><span class="k">EXEC</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Prove</span><span class="w"> </span><span class="o">@</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Cond</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Sub</span><span class="w"> </span><span class="k">OUTPUT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">NextLevel</span><span class="p">;</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">            </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">Ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="w">        </span><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>
+<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">Ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="w">        </span><span class="k">BEGIN</span>
+<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="w">            </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="k">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a><span class="w">            </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FactCode</span><span class="p">,</span><span class="w"> </span><span class="n">RuleId</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">RuleId</span><span class="p">);</span>
+<a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="w">            </span><span class="n">PRINT</span><span class="w"> </span><span class="o">@</span><span class="n">indent</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' — доведено ✔'</span><span class="p">;</span>
+<a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a><span class="w">        </span><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a><span class="w">    </span><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a>
+<a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="k">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">PRINT</span><span class="w"> </span><span class="o">@</span><span class="n">indent</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' — не доведено ✘'</span><span class="p">;</span>
+<a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a><span class="k">GO</span>
+<a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a>
+<a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a><span class="c1">-- Чи має Федоренко (14) право на підвищену стипендію?</span>
+<a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">WM</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">RuleId</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w">   </span><span class="c1">-- очищуємо висновки прямого виведення</span>
+<a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">r</span><span class="w"> </span><span class="nb">BIT</span><span class="p">;</span>
+<a id="__codelineno-7-54" name="__codelineno-7-54" href="#__codelineno-7-54"></a><span class="k">EXEC</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Prove</span><span class="w"> </span><span class="o">@</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">Goal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'high_scholarship'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="k">Result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">r</span><span class="w"> </span><span class="k">OUTPUT</span><span class="p">;</span>
+<a id="__codelineno-7-55" name="__codelineno-7-55" href="#__codelineno-7-55"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">r</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Proved</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Повідомлення (дерево доведення)</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>high_scholarship ← правило 3?
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    excellent ← правило 1?
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        avg_ge_90 — не доведено ✘
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    excellent — не доведено ✘
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>high_scholarship — не доведено ✘
+</code></pre></div>
+Студентка має середній бал нижче 90, тому ціль не доведено. Спробуйте
+<code>@StudentId = 12</code> (Яковенко) — для неї ціль буде доведено.</p>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Тимчасова таблиця</p>
+<p><code>#WM</code> існує лише в поточному сеансі, тому виконуйте приклади 6.5 в одному вікні запитів.</p>
+</div>
+<h2 id="66">6.6. Подання знань із застосуванням фреймів<a class="headerlink" href="#66" title="Permanent link">&para;</a></h2>
+<p><strong>Фрейм</strong> (М. Мінський, 1975) — структура даних для подання стереотипної ситуації або
+поняття. Фрейм складається з імені та набору <strong>слотів</strong>; кожен слот має ім'я, значення
+(або значення за замовчуванням) і може мати приєднані <strong>процедури-демони</strong>
+(<code>IF-NEEDED</code> — обчислити значення на запит, <code>IF-ADDED</code> — виконати при заповненні).</p>
+<h3 id="_7">Структура фрейму<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ФРЕЙМ: Студент-бюджетник
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  IS-A:             Студент              ← посилання на батьківський фрейм
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  Фінансування:     державний бюджет
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  Стипендія:        2000 грн             ← значення за замовчуванням
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  Середній бал:     IF-NEEDED: обчислити з таблиці оцінок
+</code></pre></div>
+<p>Фрейми утворюють ієрархію <strong>IS-A</strong>; дочірній фрейм <strong>успадковує</strong> слоти батьківського
+і може <strong>перевизначити</strong> їх значення. Розрізняють <strong>фрейми-прототипи</strong> (класи) і
+<strong>фрейми-екземпляри</strong> (конкретні об'єкти).</p>
+<p>Знайдемо всі слоти екземпляра «Петренко Іван» з урахуванням успадкування (значення
+найближчого фрейму має пріоритет):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">WITH</span><span class="w"> </span><span class="k">Chain</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">                                   </span><span class="c1">-- ланцюжок IS-A від екземпляра до кореня</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">FrameId</span><span class="p">,</span><span class="w"> </span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">ParentFrameId</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Distance</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Frame</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Петренко Іван'</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">FrameId</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">ParentFrameId</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Distance</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Frame</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">Chain</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">FrameId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">ParentFrameId</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">),</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">AllSlots</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">SlotName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">SlotValue</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">FromFrame</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Distance</span><span class="p">,</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">           </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">SlotName</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Distance</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rn</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="k">Chain</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Slot</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">FrameId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">FrameId</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="p">)</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">SlotName</span><span class="p">,</span><span class="w"> </span><span class="n">SlotValue</span><span class="p">,</span><span class="w"> </span><span class="n">FromFrame</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">InheritedFrom</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="k">FROM</span><span class="w"> </span><span class="n">AllSlots</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Distance</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">SlotName</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th>SlotName</th>
+<th>SlotValue</th>
+<th>InheritedFrom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Громадянство</td>
+<td>Україна</td>
+<td>Людина</td>
+</tr>
+<tr>
+<td>Має ім'я</td>
+<td>так</td>
+<td>Людина</td>
+</tr>
+<tr>
+<td>Навчальний заклад</td>
+<td>Університет</td>
+<td>Студент</td>
+</tr>
+<tr>
+<td>Форма навчання</td>
+<td>денна</td>
+<td>Студент</td>
+</tr>
+<tr>
+<td>Фінансування</td>
+<td>державний бюджет</td>
+<td>Студент-бюджетник</td>
+</tr>
+<tr>
+<td>Група</td>
+<td>ПІ-21</td>
+<td>Петренко Іван</td>
+</tr>
+<tr>
+<td>Стипендія</td>
+<td>2500 грн</td>
+<td>Петренко Іван</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>Слот «Стипендія» перевизначено в екземплярі (2500 замість 2000 за замовчуванням).
+Процедуру-демон <code>IF-NEEDED</code> у SQL Server можна змоделювати функцією або обчислюваним
+стовпцем, а <code>IF-ADDED</code> — тригером (<a href="../../module2/topic7/#тригери">Тема 7</a>).</p>
+<h2 id="67">6.7. Стратегії пошуку в системах обробки знань<a class="headerlink" href="#67" title="Permanent link">&para;</a></h2>
+<p>Багато задач ЕС зводяться до <strong>пошуку в просторі станів</strong>: є початковий стан, цільовий
+стан і оператори переходу. Простір станів зручно подати графом.</p>
+<h3 id="_8">Карта доріг і дерево пошуку<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><strong>Карта доріг</strong> — класичний приклад простору станів: стани — міста, оператори — переїзд
+дорогою до сусіднього міста. Знайдемо шлях із <strong>Києва</strong> до <strong>Львова</strong>.</p>
+<pre class="mermaid"><code>flowchart LR
+    K["Київ"] ---|140| Zh["Житомир"]
+    K ---|190| Ch["Черкаси"]
+    K ---|340| P["Полтава"]
+    K ---|210| U["Умань"]
+    Zh ---|190| R["Рівне"]
+    Zh ---|130| V["Вінниця"]
+    Zh ---|180| Kh["Хмельницький"]
+    R ---|210| L["Львів"]
+    R ---|160| T["Тернопіль"]
+    V ---|120| Kh
+    V ---|160| U
+    Kh ---|110| T
+    T ---|130| L
+    U ---|190| Ch
+    U ---|270| O["Одеса"]</code></pre>
+<p><strong>Дерево пошуку</strong> отримують, розгортаючи граф з початкової вершини: корінь — Київ,
+його нащадки — сусіди Києва і т. д. (міста на одній гілці не повторюються).</p>
+<h3 id="_9">Пошук у ширину<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><strong>Пошук у ширину</strong> (BFS) розглядає вершини <strong>рівень за рівнем</strong>: спочатку всіх сусідів
+початкової вершини, потім їхніх сусідів тощо. Гарантує шлях з <strong>мінімальною кількістю
+переходів</strong>, але потребує багато пам'яті. Рекурсивний CTE якраз будує дерево пошуку
+по рівнях:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">start</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="p">),</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">        </span><span class="o">@</span><span class="n">goal</span><span class="w">  </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="p">);</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">WITH</span><span class="w"> </span><span class="n">SearchTree</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Depth</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Km</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">           </span><span class="k">CAST</span><span class="p">(</span><span class="n">N</span><span class="s1">'/'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Visited</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">           </span><span class="k">CAST</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">RoutePath</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">start</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">Depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">Km</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">DistanceKm</span><span class="p">,</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">           </span><span class="k">CAST</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">Visited</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">)),</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">           </span><span class="k">CAST</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">RoutePath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' → '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">))</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">SearchTree</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Road</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">FromCityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">CityId</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">Visited</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="n">N</span><span class="s1">'%/'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/%'</span><span class="w">   </span><span class="c1">-- без циклів</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">CityId</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="o">@</span><span class="n">goal</span><span class="w">                                                     </span><span class="c1">-- ціль не розгортаємо</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="p">)</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">TIES</span><span class="w"> </span><span class="n">Depth</span><span class="p">,</span><span class="w"> </span><span class="n">Km</span><span class="p">,</span><span class="w"> </span><span class="n">RoutePath</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="k">FROM</span><span class="w"> </span><span class="n">SearchTree</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">goal</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Depth</span><span class="p">;</span><span class="w">           </span><span class="c1">-- перший знайдений рівень = найменше переходів</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Depth</th>
+<th style="text-align: right;">Km</th>
+<th>RoutePath</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">540</td>
+<td>Київ → Житомир → Рівне → Львів</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>Той самий запит без <code>TOP … ORDER BY Depth</code> і з <code>ORDER BY Km</code> знайде <strong>найкоротший за
+кілометрами</strong> маршрут (перебором усіх шляхів). Графові таблиці SQL Server мають
+вбудований пошук у ширину — <code>SHORTEST_PATH</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">-- SHORTEST_PATH знаходить найкоротші (за кількістю ребер) шляхи до ВСІХ досяжних вершин,</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">-- тому відбираємо той, що закінчується у Львові</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">RoutePath</span><span class="p">,</span><span class="w"> </span><span class="n">Hops</span><span class="p">,</span><span class="w"> </span><span class="n">Km</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' → '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">STRING_AGG</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">' → '</span><span class="p">)</span><span class="w"> </span><span class="n">WITHIN</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="p">(</span><span class="n">GRAPH</span><span class="w"> </span><span class="n">PATH</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">RoutePath</span><span class="p">,</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">           </span><span class="n">LAST_VALUE</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="w">  </span><span class="n">WITHIN</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="p">(</span><span class="n">GRAPH</span><span class="w"> </span><span class="n">PATH</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">LastCity</span><span class="p">,</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">           </span><span class="k">COUNT</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">CityId</span><span class="p">)</span><span class="w">     </span><span class="n">WITHIN</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="p">(</span><span class="n">GRAPH</span><span class="w"> </span><span class="n">PATH</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Hops</span><span class="p">,</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">           </span><span class="k">SUM</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">DistanceKm</span><span class="p">)</span><span class="w">   </span><span class="n">WITHIN</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="p">(</span><span class="n">GRAPH</span><span class="w"> </span><span class="n">PATH</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Km</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">CityNode</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">         </span><span class="n">kb</span><span class="p">.</span><span class="n">RoadEdge</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">PATH</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="p">,</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">         </span><span class="n">kb</span><span class="p">.</span><span class="n">CityNode</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">PATH</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">b</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">MATCH</span><span class="p">(</span><span class="n">SHORTEST_PATH</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">b</span><span class="p">)</span><span class="o">+</span><span class="p">))</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">paths</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">LastCity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_10">Пошук у глибину<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><strong>Пошук у глибину</strong> (DFS) іде вздовж однієї гілки якомога далі; якщо зайшов у глухий кут
+— <strong>повертається</strong> (backtracking) до останньої розвилки. Потребує мало пам'яті (лише
+поточний шлях), але знайдений шлях не обов'язково найкоротший. Реалізуємо DFS явно,
+зі <strong>стеком</strong> у таблиці:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">start</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="p">),</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">        </span><span class="o">@</span><span class="n">goal</span><span class="w">  </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="p">);</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">Stack</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">(</span><span class="n">Seq</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">IDENTITY</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">RoutePath</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span><span class="w"> </span><span class="n">Visited</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">));</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span><span class="w"> </span><span class="o">@</span><span class="n">visited</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span><span class="w"> </span><span class="o">@</span><span class="n">top</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">expanded</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">Stack</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="k">start</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'/'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="o">@</span><span class="k">start</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/'</span><span class="p">);</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">WHILE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">@</span><span class="n">Stack</span><span class="p">)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="k">BEGIN</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="c1">-- POP: беремо останній доданий елемент (LIFO)</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">@</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Seq</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CityId</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoutePath</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">visited</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Visited</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="o">@</span><span class="n">Stack</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Seq</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">@</span><span class="n">Stack</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">top</span><span class="p">;</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">expanded</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">goal</span><span class="w"> </span><span class="n">BREAK</span><span class="p">;</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="c1">-- PUSH: сусіди в зворотному алфавітному порядку, щоб першим розгорнути «найменшого»</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">Stack</span><span class="w"> </span><span class="p">(</span><span class="n">CityId</span><span class="p">,</span><span class="w"> </span><span class="n">RoutePath</span><span class="p">,</span><span class="w"> </span><span class="n">Visited</span><span class="p">)</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' → '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">visited</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/'</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Road</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">FromCityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">city</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="o">@</span><span class="n">visited</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="n">N</span><span class="s1">'%/'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/%'</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">FoundRoute</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">expanded</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NodesExpanded</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th>FoundRoute</th>
+<th style="text-align: right;">NodesExpanded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Київ → Житомир → Вінниця → Хмельницький → Тернопіль → Львів</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+<p>DFS знайшов <strong>перший</strong> шлях за порядком обходу: 5 переходів і 630 км проти 3 переходів
+і 540 км у пошуку в ширину. Зате в пам'яті зберігався лише стек, а не всі рівні дерева.</p>
+</details>
+<h3 id="hill-climbing">Метод «піднімання вгору» (hill climbing)<a class="headerlink" href="#hill-climbing" title="Permanent link">&para;</a></h3>
+<p><strong>Евристичний</strong> метод: на кожному кроці переходимо до того сусіда, що виглядає
+<strong>найближчим до цілі</strong> за оцінювальною функцією (тут — відстань по прямій до Львова,
+стовпець <code>StraightToLviv</code>). Попередні варіанти не запам'ятовуються, тому метод швидкий, але
+може застрягнути в <strong>локальному екстремумі</strong> чи на «плато».</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="p">),</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">        </span><span class="o">@</span><span class="n">goal</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="p">),</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">        </span><span class="o">@</span><span class="k">next</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">km</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">WHILE</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="o">@</span><span class="n">goal</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">BEGIN</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">@</span><span class="k">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Road</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">ToCityId</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">FromCityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">city</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">StraightToLviv</span><span class="p">;</span><span class="w">                         </span><span class="c1">-- найкращий за евристикою сусід</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">    </span><span class="c1">-- якщо сусід не ближчий до цілі, ніж поточне місто, — застрягли (локальний мінімум)</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">StraightToLviv</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">next</span><span class="p">)</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">       </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">StraightToLviv</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="p">)</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="k">BEGIN</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">        </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">N</span><span class="s1">' (глухий кут)'</span><span class="p">;</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">        </span><span class="n">BREAK</span><span class="p">;</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">    </span><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">km</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">DistanceKm</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">Road</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FromCityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">ToCityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">next</span><span class="p">;</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">N</span><span class="s1">' → '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">kb</span><span class="p">.</span><span class="n">City</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CityId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">next</span><span class="p">;</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">next</span><span class="p">;</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">route</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">HillClimbingRoute</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">km</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Km</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th>HillClimbingRoute</th>
+<th style="text-align: right;">Km</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Київ → Житомир → Рівне → Львів</td>
+<td style="text-align: right;">540</td>
+</tr>
+</tbody>
+</table>
+</details>
+<table>
+<thead>
+<tr>
+<th>Стратегія</th>
+<th>Повнота</th>
+<th>Оптимальність</th>
+<th>Пам'ять</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>У ширину</td>
+<td>так</td>
+<td>за кількістю кроків</td>
+<td>велика</td>
+</tr>
+<tr>
+<td>У глибину</td>
+<td>так (у скінченному графі без циклів)</td>
+<td>ні</td>
+<td>мала</td>
+</tr>
+<tr>
+<td>Піднімання вгору</td>
+<td>ні (локальні екстремуми)</td>
+<td>ні</td>
+<td>мінімальна</td>
+</tr>
+</tbody>
+</table>
+<h2 id="68">6.8. Нечіткі множини в системах баз знань<a class="headerlink" href="#68" title="Permanent link">&para;</a></h2>
+<p>Експерти часто міркують нечіткими поняттями: «високий бал», «молодий студент»,
+«великий борг». <strong>Нечітка множина</strong> A задається <strong>функцією належності</strong>
+μ<sub>A</sub>(x) ∈ [0; 1], яка показує <strong>ступінь</strong>, з яким елемент x належить множині
+(у звичайній множині — лише 0 або 1). Теорію запропонував Л. Заде (1965).</p>
+<p>Функції належності для нашої задачі:</p>
+<ul>
+<li>«високий середній бал»: μ = 0 при бал ≤ 70; μ = (бал − 70) / 20 при 70 &lt; бал &lt; 90; μ = 1 при бал ≥ 90;</li>
+<li>«молодий студент»: μ = 1 при вік ≤ 20; μ = (23 − вік) / 3 при 20 &lt; вік &lt; 23; μ = 0 при вік ≥ 23.</li>
+</ul>
+<h3 id="_11">Операції над нечіткими множинами<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Операція</th>
+<th>Формула</th>
+<th>SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Перетин (І)</td>
+<td>μ<sub>A∩B</sub> = min(μ<sub>A</sub>, μ<sub>B</sub>)</td>
+<td><code>LEAST(a, b)</code></td>
+</tr>
+<tr>
+<td>Об'єднання (АБО)</td>
+<td>μ<sub>A∪B</sub> = max(μ<sub>A</sub>, μ<sub>B</sub>)</td>
+<td><code>GREATEST(a, b)</code></td>
+</tr>
+<tr>
+<td>Доповнення (НЕ)</td>
+<td>μ<sub>¬A</sub> = 1 − μ<sub>A</sub></td>
+<td><code>1 - a</code></td>
+</tr>
+<tr>
+<td>α-переріз</td>
+<td>{x : μ<sub>A</sub>(x) ≥ α}</td>
+<td><code>WHERE mu &gt;= @alpha</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">Нечітка фільтрація і вибір<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p><strong>Нечітка фільтрація</strong> — обчислення ступеня відповідності кожного запису нечіткій умові;
+<strong>нечіткий вибір</strong> — відбір записів, у яких цей ступінь не нижчий за поріг α, з
+упорядкуванням за ступенем.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">-- «Знайти молодих студентів з високим середнім балом»  (LEAST/GREATEST — SQL Server 2022+)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">alpha</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">30</span><span class="p">;</span><span class="w">     </span><span class="c1">-- поріг α</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">today</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'2025-09-01'</span><span class="p">;</span><span class="w">     </span><span class="c1">-- фіксована дата, щоб результати були відтворюваними</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="k">WITH</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">           </span><span class="k">AVG</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">g</span><span class="p">.</span><span class="n">Score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">AvgScore</span><span class="p">,</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">           </span><span class="n">DATEDIFF</span><span class="p">(</span><span class="k">DAY</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">BirthDate</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">today</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">365</span><span class="p">.</span><span class="mi">25</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Age</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">BirthDate</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="p">),</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="n">Fuzzy</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">           </span><span class="k">CAST</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">AvgScore</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">70</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">                     </span><span class="k">WHEN</span><span class="w"> </span><span class="n">AvgScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">                     </span><span class="k">ELSE</span><span class="w"> </span><span class="p">(</span><span class="n">AvgScore</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">70</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">muHighScore</span><span class="p">,</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">           </span><span class="k">CAST</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">Age</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">                     </span><span class="k">WHEN</span><span class="w"> </span><span class="n">Age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">23</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">                     </span><span class="k">ELSE</span><span class="w"> </span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Age</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">muYoung</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Base</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="p">)</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">LastName</span><span class="p">,</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">       </span><span class="k">CAST</span><span class="p">(</span><span class="n">AvgScore</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="w">     </span><span class="k">AS</span><span class="w"> </span><span class="n">AvgScore</span><span class="p">,</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">       </span><span class="k">CAST</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="w">          </span><span class="k">AS</span><span class="w"> </span><span class="n">Age</span><span class="p">,</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">       </span><span class="n">muHighScore</span><span class="p">,</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">       </span><span class="n">muYoung</span><span class="p">,</span>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="w">       </span><span class="n">LEAST</span><span class="p">(</span><span class="n">muHighScore</span><span class="p">,</span><span class="w"> </span><span class="n">muYoung</span><span class="p">)</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">mu</span><span class="p">(</span><span class="err">молодий</span><span class="w"> </span><span class="err">І</span><span class="w"> </span><span class="err">високий</span><span class="w"> </span><span class="err">бал</span><span class="p">)],</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="w">       </span><span class="n">GREATEST</span><span class="p">(</span><span class="n">muHighScore</span><span class="p">,</span><span class="w"> </span><span class="n">muYoung</span><span class="p">)</span><span class="w">     </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">mu</span><span class="p">(</span><span class="err">молодий</span><span class="w"> </span><span class="err">АБО</span><span class="w"> </span><span class="err">високий</span><span class="w"> </span><span class="err">бал</span><span class="p">)],</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="w">       </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">muHighScore</span><span class="w">                    </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">mu</span><span class="p">(</span><span class="err">НЕ</span><span class="w"> </span><span class="err">високий</span><span class="w"> </span><span class="err">бал</span><span class="p">)]</span>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Fuzzy</span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">LEAST</span><span class="p">(</span><span class="n">muHighScore</span><span class="p">,</span><span class="w"> </span><span class="n">muYoung</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="o">@</span><span class="n">alpha</span><span class="w">          </span><span class="c1">-- нечіткий вибір (α-переріз)</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">[</span><span class="n">mu</span><span class="p">(</span><span class="err">молодий</span><span class="w"> </span><span class="err">І</span><span class="w"> </span><span class="err">високий</span><span class="w"> </span><span class="err">бал</span><span class="p">)]</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Для SQL Server до 2022</p>
+<p>Функцій <code>LEAST</code>/<code>GREATEST</code> там немає — замініть їх виразом
+<code>CASE WHEN a &lt; b THEN a ELSE b END</code> (та <code>&gt;</code> для максимуму).</p>
+</div>
+<h2 id="_13">Контрольні питання<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Чим знання відрізняються від даних? Що таке експертна система?</li>
+<li>Назвіть компоненти експертної системи та їх призначення.</li>
+<li>Як побудувати систему правил із дерева рішень?</li>
+<li>Запишіть мовою логіки предикатів: «кожен викладач працює на якійсь кафедрі».
+   Як цей вираз записати на SQL?</li>
+<li>Які види семантичних відношень ви знаєте?</li>
+<li>Чим прямий ланцюжок міркувань відрізняється від зворотного? Коли доцільний кожен?</li>
+<li>З чого складається фрейм? Як працює успадкування слотів?</li>
+<li>Порівняйте пошук у ширину, у глибину та метод «піднімання вгору».</li>
+<li>Що таке функція належності? Як виконуються перетин, об'єднання та доповнення нечітких множин?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../topic5/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Тема 5. Фізична організація БД">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Тема 5. Фізична організація БД
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../module2/topic7/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Тема 7. Мови запитів">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Тема 7. Мови запитів
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2415 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Навчальний курс «Бази даних» з прикладами на Microsoft SQL Server">
+      
+      
+      
+        <link rel="canonical" href="https://shpil1993.github.io/DBTutorial/module2/topic8/">
+      
+      
+        <link rel="prev" href="../topic7/">
+      
+      
+        <link rel="next" href="../topic9/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Тема 8. Управління транзакціями - Бази даних</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="Бази даних" class="md-header__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Бази даних
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Тема 8. Управління транзакціями
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Бази даних" class="md-nav__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Бази даних
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тестова база даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 1. Основи проектування БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 1. Основи проектування БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 1. Бази та банки даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 2. Інфологічна модель
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 3. Моделі даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 4. Проектування реляційних БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 5. Фізична організація БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 6. Організація баз знань
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 7. Мови запитів
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 8. Управління транзакціями
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 8. Управління транзакціями
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Поняття транзакції та її властивості
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Порядок виконання операцій транзакції
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2. Порядок виконання операцій транзакції">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Атомарність на практиці
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Точки збереження та обробка помилок
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3. Проблеми управління паралельним доступом
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3. Проблеми управління паралельним доступом">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рівні ізоляції
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Демонстрація аномалій у двох сеансах
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Демонстрація аномалій у двох сеансах">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Брудне читання
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Неповторюване читання
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Фантоми
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Втрачене оновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4. Впорядкування та відновлення транзакцій
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5. Методи управління паралельним доступом
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5. Методи управління паралельним доступом">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Методи блокувань
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Методи обробки взаємоблокувань
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Методи з використанням часових відміток
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Оптимістичні методи впорядкування транзакцій
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Управління паралельним виконанням транзакцій з використанням планувальника
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6. Механізми відновлення бази даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.6. Механізми відновлення бази даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Функції СКБД з відновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Журнал транзакцій
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Створення контрольних точок
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод відкладеного оновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод негайного оновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод тіньового сторінкового обміну
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Резервне копіювання та відновлення в SQL Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7. Управління транзакціями за допомогою мови SQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 9. Розподілені бази даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Поняття транзакції та її властивості
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Порядок виконання операцій транзакції
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2. Порядок виконання операцій транзакції">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Атомарність на практиці
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Точки збереження та обробка помилок
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3. Проблеми управління паралельним доступом
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3. Проблеми управління паралельним доступом">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рівні ізоляції
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Демонстрація аномалій у двох сеансах
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Демонстрація аномалій у двох сеансах">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Брудне читання
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Неповторюване читання
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Фантоми
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Втрачене оновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4. Впорядкування та відновлення транзакцій
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5. Методи управління паралельним доступом
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5. Методи управління паралельним доступом">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Методи блокувань
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Методи обробки взаємоблокувань
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Методи з використанням часових відміток
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Оптимістичні методи впорядкування транзакцій
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Управління паралельним виконанням транзакцій з використанням планувальника
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6. Механізми відновлення бази даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.6. Механізми відновлення бази даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Функції СКБД з відновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Журнал транзакцій
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Створення контрольних точок
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод відкладеного оновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод негайного оновлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метод тіньового сторінкового обміну
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Резервне копіювання та відновлення в SQL Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7. Управління транзакціями за допомогою мови SQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="8">Тема 8. Управління транзакціями<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
+<h2 id="81">8.1. Поняття транзакції та її властивості<a class="headerlink" href="#81" title="Permanent link">&para;</a></h2>
+<p><strong>Транзакція</strong> — логічна одиниця роботи з базою даних: послідовність операцій, яка
+виконується <strong>повністю або не виконується зовсім</strong> і переводить БД з одного узгодженого
+стану в інший.</p>
+<p>Класичний приклад — оплата навчання: треба <strong>і</strong> записати платіж, <strong>і</strong> зменшити борг
+студента. Якщо збій станеться між цими діями, дані стануть суперечливими.</p>
+<p>Властивості транзакцій — <strong>ACID</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Властивість</th>
+<th>Зміст</th>
+<th>Хто забезпечує в SQL Server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong>tomicity — атомарність</td>
+<td>або всі операції, або жодна</td>
+<td>журнал транзакцій, <code>ROLLBACK</code></td>
+</tr>
+<tr>
+<td><strong>C</strong>onsistency — узгодженість</td>
+<td>транзакція переводить БД з узгодженого стану в узгоджений</td>
+<td>обмеження цілісності, тригери, логіка застосування</td>
+</tr>
+<tr>
+<td><strong>I</strong>solation — ізольованість</td>
+<td>паралельні транзакції не впливають одна на одну</td>
+<td>блокування, версії рядків, рівні ізоляції</td>
+</tr>
+<tr>
+<td><strong>D</strong>urability — довговічність</td>
+<td>результати зафіксованої транзакції не втрачаються навіть після збою</td>
+<td>журнал з попереднім записом (WAL), резервні копії</td>
+</tr>
+</tbody>
+</table>
+<h2 id="82">8.2. Порядок виконання операцій транзакції<a class="headerlink" href="#82" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Активна: BEGIN TRAN
+    Активна --&gt; Частково_зафіксована: остання операція
+    Активна --&gt; Невдала: помилка
+    Частково_зафіксована --&gt; Зафіксована: COMMIT (записи журналу на диску)
+    Частково_зафіксована --&gt; Невдала: збій
+    Невдала --&gt; Скасована: ROLLBACK (відкат за журналом)
+    Зафіксована --&gt; [*]
+    Скасована --&gt; [*]</code></pre>
+<p>У SQL Server транзакції бувають:</p>
+<ul>
+<li><strong>автоматичні</strong> (autocommit, режим за замовчуванням) — кожен оператор є окремою транзакцією;</li>
+<li><strong>явні</strong> — <code>BEGIN TRANSACTION … COMMIT / ROLLBACK</code>;</li>
+<li><strong>неявні</strong> — після <code>SET IMPLICIT_TRANSACTIONS ON</code> транзакцію починає перший оператор,
+  а завершувати її треба явно.</li>
+</ul>
+<h3 id="_1">Атомарність на практиці<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w">   </span><span class="c1">-- борг 18000</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">BEGIN</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Payment</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">9000</span><span class="p">);</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">9000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">TRANCOUNT</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">OpenTransactions</span><span class="p">;</span><span class="w">      </span><span class="c1">-- 1: транзакція відкрита</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 9000 (видно лише в цьому сеансі)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span><span class="w">                            </span><span class="c1">-- відміняємо ОБИДВІ операції</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w">       </span><span class="c1">-- знову 18000</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Payments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Payment</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 0: платежу немає</span>
+</code></pre></div>
+<h3 id="_2">Точки збереження та обробка помилок<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">05</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'асистент'</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">SAVE</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="n">AfterAssistants</span><span class="p">;</span><span class="w">            </span><span class="c1">-- точка збереження</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">50</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'професор'</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="n">AfterAssistants</span><span class="p">;</span><span class="w">        </span><span class="c1">-- відкат лише до точки збереження</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="k">Position</span><span class="p">,</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">Position</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">'асистент'</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'професор'</span><span class="p">);</span><span class="w">    </span><span class="c1">-- асистентам +5 %, професорам без змін</span>
+</code></pre></div>
+<p>За замовчуванням помилка під час виконання <strong>не</strong> відкочує транзакцію автоматично:
+оператор з помилкою скасовується, а наступні виконуються! Тому використовують
+<code>TRY…CATCH</code> або <code>SET XACT_ABORT ON</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Без захисту: помилка в другому операторі, але перший (і третій) зафіксуються</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Ірпінь'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">100</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">-- порушення CHECK</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">City</span><span class="p">,</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">      </span><span class="c1">-- City змінилося!</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">GO</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">-- Правильно: XACT_ABORT ON — будь-яка помилка відкочує всю транзакцію</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">100</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">GO</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">                   </span><span class="c1">-- досі Ірпінь: відкочено все</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="k">GO</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="c1">-- Правильно: TRY...CATCH</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRY</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">100</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">    </span><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="k">END</span><span class="w"> </span><span class="n">TRY</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">CATCH</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="n">XACT_STATE</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="p">;</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">ERROR_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrNo</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR_MESSAGE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ErrMessage</span><span class="p">;</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="k">END</span><span class="w"> </span><span class="n">CATCH</span><span class="p">;</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">          </span><span class="c1">-- повертаємо як було</span>
+</code></pre></div>
+<h2 id="83">8.3. Проблеми управління паралельним доступом<a class="headerlink" href="#83" title="Permanent link">&para;</a></h2>
+<p>Коли кілька транзакцій одночасно працюють з тими самими даними, без керування
+паралельністю виникають аномалії:</p>
+<table>
+<thead>
+<tr>
+<th>Проблема</th>
+<th>Опис</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Втрачене оновлення</strong> (lost update)</td>
+<td>дві транзакції читають значення, змінюють і записують; результат першої затирається другою</td>
+</tr>
+<tr>
+<td><strong>Брудне читання</strong> (dirty read)</td>
+<td>транзакція читає незафіксовані зміни іншої, яка потім відкочується</td>
+</tr>
+<tr>
+<td><strong>Неповторюване читання</strong> (non-repeatable read)</td>
+<td>повторне читання рядка в межах транзакції дає інше значення, бо його змінила й зафіксувала інша транзакція</td>
+</tr>
+<tr>
+<td><strong>Фантоми</strong> (phantom read)</td>
+<td>повторний запит повертає <strong>нові рядки</strong>, вставлені іншою транзакцією</td>
+</tr>
+<tr>
+<td><strong>Несуперечливий аналіз</strong> (inconsistent analysis)</td>
+<td>підсумок обчислюється за даними, частина яких змінюється під час обчислення</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">Рівні ізоляції<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Стандарт SQL визначає рівні ізоляції через те, які аномалії вони допускають:</p>
+<table>
+<thead>
+<tr>
+<th>Рівень ізоляції</th>
+<th style="text-align: center;">Брудне читання</th>
+<th style="text-align: center;">Неповторюване читання</th>
+<th style="text-align: center;">Фантоми</th>
+<th>Механізм у SQL Server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>READ UNCOMMITTED</code></td>
+<td style="text-align: center;">можливе</td>
+<td style="text-align: center;">можливе</td>
+<td style="text-align: center;">можливі</td>
+<td>читання без S-блокувань</td>
+</tr>
+<tr>
+<td><code>READ COMMITTED</code> (за замовчуванням)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">можливе</td>
+<td style="text-align: center;">можливі</td>
+<td>S-блокування на час читання рядка</td>
+</tr>
+<tr>
+<td><code>REPEATABLE READ</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">можливі</td>
+<td>S-блокування до кінця транзакції</td>
+</tr>
+<tr>
+<td><code>SERIALIZABLE</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td>блокування діапазонів ключів</td>
+</tr>
+<tr>
+<td><code>SNAPSHOT</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td>версії рядків (tempdb), без блокувань читання</td>
+</tr>
+</tbody>
+</table>
+<p>Встановлюється так: <code>SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;</code></p>
+<h3 id="_4">Демонстрація аномалій у двох сеансах<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Як виконувати</p>
+<p>Відкрийте <strong>два вікна запитів</strong> у SSMS (обидва з базою <code>UniversityDB</code>) і виконуйте
+кроки по черзі в порядку номерів, виділяючи потрібні рядки та натискаючи ++f5++.</p>
+</div>
+<h4 id="_5">Брудне читання<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Сеанс 1</label><label for="__tabbed_1_2">Сеанс 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Крок 1</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9999</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">-- не фіксуємо!</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1">-- Крок 3</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">ROLLBACK</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Крок 2а: читаємо незафіксовані дані</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 9999 — «брудні» дані!</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">-- Крок 2б: на рівні READ COMMITTED запит ЧЕКАЄ, доки сеанс 1 не завершиться</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Scholarship</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">-- після кроку 3 поверне 2000</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="_6">Неповторюване читання<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Сеанс 1</label><label for="__tabbed_2_2">Сеанс 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- Крок 1</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 19000</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">-- Крок 3: те саме читання в тій самій транзакції</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 21000 — значення змінилося!</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">-- Повторіть кроки з REPEATABLE READ: тоді крок 2 чекатиме на COMMIT сеансу 1</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Крок 2</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="_7">Фантоми<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Сеанс 1</label><label for="__tabbed_3_2">Сеанс 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Крок 1</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Cnt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">GroupId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 0</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1">-- Крок 3</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Cnt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">GroupId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 1 — з'явився «фантом»</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1">-- З SERIALIZABLE вставка на кроці 2 чекатиме на COMMIT (блокування діапазону ключів)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- Крок 2</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="p">(</span><span class="n">GroupId</span><span class="p">,</span><span class="w"> </span><span class="n">RecordBookNo</span><span class="p">,</span><span class="w"> </span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">FirstName</span><span class="p">,</span><span class="w"> </span><span class="n">BirthDate</span><span class="p">,</span><span class="w"> </span><span class="n">Gender</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">'24040099'</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'Фантом'</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'Петро'</span><span class="p">,</span><span class="w"> </span><span class="s1">'2006-01-01'</span><span class="p">,</span><span class="w"> </span><span class="s1">'M'</span><span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="_8">Втрачене оновлення<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>Дві касирки одночасно вносять оплату за того самого студента, використовуючи шаблон
+«прочитати → обчислити → записати»:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Сеанс 1</label><label for="__tabbed_4_2">Сеанс 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- Крок 1: застосування читає борг</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 15000</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1">-- Крок 3: застосування обчислило 15000 − 5000 і записує результат</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- Крок 2: інше застосування читає той самий борг</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span><span class="w">   </span><span class="c1">-- теж 15000</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1">-- Крок 4: обчислило 15000 − 3000 і записує результат</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1">-- Разом сплачено 8000, а борг 12000 замість 7000: оплата сеансу 1 втрачена!</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Як уникнути: змінювати значення <strong>одним оператором</strong> (<code>SET TuitionDebt = TuitionDebt - 5000</code>)
+або читати з підказкою <code>WITH (UPDLOCK)</code>: тоді крок 2 чекатиме, доки сеанс 1 не зафіксує
+зміни, і прочитає вже 10000:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">debt</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">        </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">UPDLOCK</span><span class="p">)</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">debt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="84">8.4. Впорядкування та відновлення транзакцій<a class="headerlink" href="#84" title="Permanent link">&para;</a></h2>
+<p><strong>Розклад</strong> (графік) — послідовність, у якій виконуються операції кількох транзакцій.</p>
+<ul>
+<li><strong>Послідовний</strong> розклад — транзакції виконуються одна за одною без чергування. Завжди
+  коректний, але повільний.</li>
+<li><strong>Серіалізовний</strong> розклад — паралельний розклад, результат якого <strong>еквівалентний
+  деякому послідовному</strong>. Мета керування паралельністю — допускати лише серіалізовні розклади.</li>
+</ul>
+<p>Дві операції різних транзакцій <strong>конфліктують</strong>, якщо вони звертаються до одного елемента
+даних і хоча б одна з них — запис. Розклад <strong>серіалізовний за конфліктами</strong>, якщо
+<strong>граф передування</strong> (вершини — транзакції, дуга T<sub>i</sub> → T<sub>j</sub>, якщо
+операція T<sub>i</sub> конфліктує з пізнішою операцією T<sub>j</sub>) <strong>не має циклів</strong>.</p>
+<p>Приклад розкладу «втраченого оновлення» вище:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Час</th>
+<th>T1</th>
+<th>T2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>read(debt)</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td></td>
+<td>read(debt)</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>write(debt)</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td></td>
+<td>write(debt)</td>
+</tr>
+</tbody>
+</table>
+<p>Дуги: T1 → T2 (read(1) — write(4)), T2 → T1 (read(2) — write(3)) — <strong>цикл</strong>, розклад не
+серіалізовний.</p>
+<p><strong>Відновлюваний розклад</strong> — транзакція фіксується лише після фіксації всіх транзакцій, чиї
+дані вона читала. Інакше можливі <strong>каскадні відкати</strong>.</p>
+<h2 id="85">8.5. Методи управління паралельним доступом<a class="headerlink" href="#85" title="Permanent link">&para;</a></h2>
+<h3 id="_9">Методи блокувань<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><strong>Блокування</strong> (lock) — позначка, що надає транзакції право доступу до елемента даних і
+обмежує доступ інших. Основні режими:</p>
+<table>
+<thead>
+<tr>
+<th>Режим</th>
+<th>Призначення</th>
+<th style="text-align: center;">Сумісний з S</th>
+<th style="text-align: center;">Сумісний з X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S</strong> (shared, спільне)</td>
+<td>читання</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">✘</td>
+</tr>
+<tr>
+<td><strong>X</strong> (exclusive, монопольне)</td>
+<td>запис</td>
+<td style="text-align: center;">✘</td>
+<td style="text-align: center;">✘</td>
+</tr>
+<tr>
+<td><strong>U</strong> (update)</td>
+<td>читання з наміром змінити (запобігає взаємоблокуванням)</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">✘</td>
+</tr>
+<tr>
+<td><strong>IS, IX</strong> (intent)</td>
+<td>на рівні таблиці/сторінки: «нижче є S/X-блокування»</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Гранулярність</strong> блокувань: рядок (<code>RID</code>/<code>KEY</code>) → сторінка (<code>PAGE</code>) → таблиця (<code>OBJECT</code>) → БД.
+Дрібні блокування — більше паралельності, але більше накладних витрат; SQL Server при
+великій кількості блокувань виконує <strong>ескалацію</strong> до рівня таблиці.</p>
+<p><strong>Двофазний протокол блокування (2PL)</strong>: кожна транзакція має <strong>фазу зростання</strong> (лише
+захоплює блокування) і <strong>фазу скорочення</strong> (лише звільняє). 2PL гарантує
+серіалізовність. <strong>Строгий 2PL</strong> утримує X-блокування до фіксації — так працює SQL Server
+(X-блокування звільняються тільки при <code>COMMIT</code>/<code>ROLLBACK</code>).</p>
+<p>Подивимося, які блокування утримує власна транзакція:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">              </span><span class="c1">-- S на ключ (до кінця транзакції)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">        </span><span class="c1">-- X на ключ</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">resource_type</span><span class="p">,</span><span class="w"> </span><span class="n">request_mode</span><span class="p">,</span><span class="w"> </span><span class="n">request_status</span><span class="p">,</span><span class="w"> </span><span class="n">resource_description</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">request_session_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@@</span><span class="n">SPID</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">resource_database_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">()</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">resource_type</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="s1">'DATABASE'</span><span class="p">;</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="k">ROLLBACK</span><span class="p">;</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат (приблизно)</summary>
+<table>
+<thead>
+<tr>
+<th>resource_type</th>
+<th>request_mode</th>
+<th>request_status</th>
+<th>resource_description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OBJECT</td>
+<td>IX</td>
+<td>GRANT</td>
+<td></td>
+</tr>
+<tr>
+<td>PAGE</td>
+<td>IX</td>
+<td>GRANT</td>
+<td>1:…</td>
+</tr>
+<tr>
+<td>KEY</td>
+<td>X</td>
+<td>GRANT</td>
+<td>(…)</td>
+</tr>
+</tbody>
+</table>
+<p>Блокування S на рядок «перетворилося» на X; на сторінку і таблицю накладено
+блокування намірів IX.</p>
+</details>
+<p>Хто кого блокує зараз (корисно, коли «зависає» запит):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">session_id</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">blocking_session_id</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">wait_type</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">wait_time</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">SqlText</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_requests</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_exec_sql_text</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">sql_handle</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">blocking_session_id</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_10">Методи обробки взаємоблокувань<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><strong>Взаємоблокування</strong> (deadlock) — ситуація, коли дві чи більше транзакцій чекають одна на
+одну по колу. Методи:</p>
+<ul>
+<li><strong>запобігання</strong> — упорядкування ресурсів (усі транзакції захоплюють блокування в одному
+  порядку); схеми з часовими мітками <strong>«чекати — померти»</strong> (wait-die: старша чекає,
+  молодша відкочується) і <strong>«поранити — чекати»</strong> (wound-wait: старша відкочує молодшу,
+  молодша чекає);</li>
+<li><strong>виявлення</strong> — побудова <strong>графа очікувань</strong> і пошук циклу; одна з транзакцій-«жертв»
+  відкочується. Так діє SQL Server: монітор взаємоблокувань перевіряє граф кожні 5 секунд
+  і повертає жертві помилку <strong>1205</strong>;</li>
+<li><strong>тайм-аути</strong> — транзакція, що чекає довше за ліміт, відкочується
+  (<code>SET LOCK_TIMEOUT 5000</code>).</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Сеанс 1</label><label for="__tabbed_5_2">Сеанс 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">-- Крок 1</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">      </span><span class="c1">-- X на студента 1</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1">-- Крок 3: чекаємо на студента 2 (його заблокував сеанс 2)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">-- Крок 2</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c1">-- X на студента 2</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1">-- Крок 4: чекаємо на студента 1 → цикл очікування!</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1">-- Через кілька секунд один із сеансів отримає:</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="c1">-- Msg 1205: Transaction (Process ID ...) was deadlocked on lock resources with another</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1">-- process and has been chosen as the deadlock victim. Rerun the transaction.</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Застосування має перехоплювати помилку 1205 і <strong>повторювати</strong> транзакцію:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">retry</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">WHILE</span><span class="w"> </span><span class="o">@</span><span class="n">retry</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">BEGIN</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRY</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">            </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">            </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">        </span><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">        </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">retry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">                               </span><span class="c1">-- успіх</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="n">TRY</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">CATCH</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">XACT_STATE</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="p">;</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">ERROR_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1205</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="o">@</span><span class="n">retry</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">        </span><span class="k">BEGIN</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">            </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">retry</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="w">            </span><span class="n">WAITFOR</span><span class="w"> </span><span class="n">DELAY</span><span class="w"> </span><span class="s1">'00:00:00.200'</span><span class="p">;</span><span class="w">             </span><span class="c1">-- коротка пауза і повтор</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="w">        </span><span class="k">END</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="w">        </span><span class="k">ELSE</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">            </span><span class="n">THROW</span><span class="p">;</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="n">CATCH</span><span class="p">;</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="k">END</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_11">Методи з використанням часових відміток<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>Кожна транзакція T отримує <strong>часову мітку</strong> TS(T) — момент старту. Для кожного елемента
+даних X зберігаються <code>read_TS(X)</code> і <code>write_TS(X)</code> — мітки наймолодших транзакцій, що його
+читали/записували. Конфлікти розв'язуються <strong>без блокувань</strong>:</p>
+<ul>
+<li>T хоче <strong>читати</strong> X, але <code>TS(T) &lt; write_TS(X)</code> (X уже переписала молодша транзакція) →
+  T відкочується і перезапускається з новою міткою;</li>
+<li>T хоче <strong>записати</strong> X, але <code>TS(T) &lt; read_TS(X)</code> або <code>TS(T) &lt; write_TS(X)</code> → T відкочується;</li>
+<li><strong>правило Томаса</strong>: якщо <code>TS(T) &lt; write_TS(X)</code>, застарілий запис можна просто проігнорувати.</li>
+</ul>
+<p>У SQL Server ідею часових міток реалізують <strong>версії рядків</strong>: тип <code>rowversion</code> —
+лічильник, що автоматично змінюється при кожній зміні рядка, а рівень <code>SNAPSHOT</code> —
+<strong>багатоверсійне</strong> керування (MVCC): кожна транзакція бачить знімок даних на момент свого
+початку.</p>
+<h3 id="_12">Оптимістичні методи впорядкування транзакцій<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p><strong>Песимістичні</strong> методи (блокування) вважають, що конфлікти часті, і запобігають їм
+заздалегідь. <strong>Оптимістичні</strong> — що конфлікти рідкісні: транзакція працює без блокувань,
+а перевірка відбувається наприкінці. Три фази:</p>
+<ol>
+<li><strong>читання</strong> — транзакція читає дані й робить зміни в локальній копії;</li>
+<li><strong>перевірка (валідація)</strong> — чи не змінила хтось прочитані дані;</li>
+<li><strong>запис</strong> — якщо перевірка успішна, зміни записуються в БД, інакше транзакція
+   відкочується і перезапускається.</li>
+</ol>
+<p>Оптимістичне керування з <code>rowversion</code> (типове для веб-застосувань: користувач відкрив
+форму, редагує кілька хвилин, а блокувати рядок увесь цей час не можна):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">RowVer</span><span class="w"> </span><span class="n">ROWVERSION</span><span class="p">;</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">GO</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1">-- 1. Фаза читання: застосування зберігає версію рядка разом з даними</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">ver</span><span class="w"> </span><span class="nb">BINARY</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="o">@</span><span class="n">credits</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">credits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Credits</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">ver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RowVer</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DB101'</span><span class="p">;</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1">-- (тим часом інший користувач змінює цей рядок)</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">.</span><span class="mi">5</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DB101'</span><span class="p">;</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="c1">-- 2-3. Валідація і запис: оновлюємо, лише якщо версія не змінилася</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">credits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DB101'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">RowVer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">ver</span><span class="p">;</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="k">IF</span><span class="w"> </span><span class="o">@@</span><span class="n">ROWCOUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">    </span><span class="n">PRINT</span><span class="w"> </span><span class="n">N</span><span class="s1">'Конфлікт: дані змінив інший користувач. Перечитайте їх і повторіть.'</span><span class="p">;</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="k">GO</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">RowVer</span><span class="p">;</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DB101'</span><span class="p">;</span>
+</code></pre></div>
+<p>Рівень <strong>SNAPSHOT</strong> — оптимістичне керування, вбудоване в СКБД (у <code>UniversityDB</code> воно
+дозволене параметром <code>ALLOW_SNAPSHOT_ISOLATION ON</code>):</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Сеанс 1</label><label for="__tabbed_6_2">Сеанс 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1">-- Крок 1</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="n">SNAPSHOT</span><span class="p">;</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 25000</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1">-- Крок 3: бачимо ЗНІМОК на момент початку транзакції, читання не блокується</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">   </span><span class="c1">-- досі 25000</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="c1">-- Крок 4: спроба змінити рядок, який змінили після початку транзакції</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="c1">-- Msg 3960: Snapshot isolation transaction aborted due to update conflict...</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">-- Крок 2</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">26000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">   </span><span class="c1">-- не чекає!</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="_13">Управління паралельним виконанням транзакцій з використанням планувальника<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p><strong>Планувальник</strong> (scheduler) — компонент СКБД, що отримує операції від транзакцій і
+визначає порядок їх виконання так, щоб розклад був серіалізовним. Для кожної операції
+планувальник може:</p>
+<ul>
+<li><strong>виконати</strong> її негайно;</li>
+<li><strong>відкласти</strong> (поставити в чергу, наприклад, до звільнення блокування);</li>
+<li><strong>відхилити</strong> — відкотити транзакцію (при взаємоблокуванні, конфлікті міток).</li>
+</ul>
+<pre class="mermaid"><code>flowchart LR
+    T1["Транзакція 1"] --&gt; TM["Менеджер транзакцій"]
+    T2["Транзакція 2"] --&gt; TM
+    T3["Транзакція 3"] --&gt; TM
+    TM --&gt; SCH["Планувальник&lt;br/&gt;(менеджер блокувань,&lt;br/&gt;часові мітки)"]
+    SCH --&gt; BM["Менеджер буферів"]
+    BM --&gt; DB[("БД")]
+    BM --&gt; LOG[("Журнал")]
+    RM["Менеджер відновлення"] --&gt; LOG
+    RM --&gt; DB</code></pre>
+<h2 id="86">8.6. Механізми відновлення бази даних<a class="headerlink" href="#86" title="Permanent link">&para;</a></h2>
+<h3 id="_14">Функції СКБД з відновлення<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>Типи збоїв: <strong>збій транзакції</strong> (помилка, відкат, взаємоблокування), <strong>збій системи</strong>
+(вимкнення живлення, падіння сервера — вміст оперативної пам'яті втрачено), <strong>збій
+носія</strong> (пошкоджено диск). СКБД має забезпечити:</p>
+<ul>
+<li><strong>відкат</strong> (UNDO) незафіксованих транзакцій;</li>
+<li><strong>повторення</strong> (REDO) зафіксованих транзакцій, зміни яких не встигли потрапити на диск;</li>
+<li>відновлення з <strong>резервних копій</strong> після збою носія.</li>
+</ul>
+<h3 id="_15">Журнал транзакцій<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p><strong>Журнал</strong> — послідовний файл, куди записуються всі зміни: ідентифікатор транзакції, тип
+операції, ідентифікатор об'єкта, <strong>образ «до»</strong> (для UNDO) та <strong>образ «після»</strong> (для REDO),
+позначки початку і фіксації транзакцій. Правило <strong>WAL</strong> (write-ahead logging): запис
+журналу потрапляє на диск <strong>раніше</strong>, ніж змінена сторінка даних; транзакція вважається
+зафіксованою, коли її запис <code>COMMIT</code> записано в журнал.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1">-- Скільки місця займає журнал і яка модель відновлення</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">recovery_model_desc</span><span class="p">,</span><span class="w"> </span><span class="n">log_reuse_wait_desc</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">databases</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_NAME</span><span class="p">();</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">total_log_size_in_bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">LogKB</span><span class="p">,</span><span class="w"> </span><span class="n">used_log_space_in_percent</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_db_log_space_usage</span><span class="p">;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1">-- Записи журналу для нашої транзакції (недокументована функція, лише для навчання)</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">CHECKPOINT</span><span class="p">;</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="w"> </span><span class="n">DemoLog</span><span class="p">;</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Бровари'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="k">SELECT</span><span class="w"> </span><span class="p">[</span><span class="k">Current</span><span class="w"> </span><span class="n">LSN</span><span class="p">],</span><span class="w"> </span><span class="k">Operation</span><span class="p">,</span><span class="w"> </span><span class="n">Context</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">Transaction</span><span class="w"> </span><span class="n">Name</span><span class="p">],</span><span class="w"> </span><span class="n">AllocUnitName</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">fn_dblog</span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="k">WHERE</span><span class="w"> </span><span class="p">[</span><span class="k">Transaction</span><span class="w"> </span><span class="n">ID</span><span class="p">]</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="p">[</span><span class="k">Transaction</span><span class="w"> </span><span class="n">ID</span><span class="p">]</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">fn_dblog</span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="w">                           </span><span class="k">WHERE</span><span class="w"> </span><span class="p">[</span><span class="k">Transaction</span><span class="w"> </span><span class="n">Name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DemoLog'</span><span class="p">);</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат (приблизно)</summary>
+<table>
+<thead>
+<tr>
+<th>Current LSN</th>
+<th>Operation</th>
+<th>Context</th>
+<th>Transaction Name</th>
+<th>AllocUnitName</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00000025:…</td>
+<td>LOP_BEGIN_XACT</td>
+<td>LCX_NULL</td>
+<td>DemoLog</td>
+<td></td>
+</tr>
+<tr>
+<td>00000025:…</td>
+<td>LOP_MODIFY_COLUMNS</td>
+<td>LCX_CLUSTERED</td>
+<td></td>
+<td>dbo.Student.PK_Student</td>
+</tr>
+<tr>
+<td>00000025:…</td>
+<td>LOP_COMMIT_XACT</td>
+<td>LCX_NULL</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Запис зміни (<code>LOP_MODIFY_ROW</code> або <code>LOP_MODIFY_COLUMNS</code>) містить образи даних «до» і «після».</p>
+</details>
+<h3 id="_16">Створення контрольних точок<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><strong>Контрольна точка</strong> (checkpoint) — момент, коли всі змінені («брудні») сторінки з
+буфера записуються на диск, а в журнал додається позначка зі списком активних транзакцій.
+Під час відновлення журнал аналізується лише <strong>від останньої контрольної точки</strong>:</p>
+<ul>
+<li>транзакції, зафіксовані <strong>до</strong> контрольної точки, — нічого робити не треба;</li>
+<li>зафіксовані <strong>після</strong> — REDO;</li>
+<li>не зафіксовані на момент збою — UNDO.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>           Контрольна точка (КТ)                         Збій
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>                    │                                      │
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>T1  ════════════╡   │                                      │   зафіксована до КТ → нічого не робимо
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>T2         ═════════╪══════════════╡                       │   зафіксована після КТ → REDO
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>T3                  │         ═════════════════════════════╪   не завершена → UNDO
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>T4  ═════════════════════════════════════╡                 │   почалася до КТ, зафіксована після → REDO
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>                    │                                      │
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>────────────────────┴──────────────────────────────────────┴──────► час
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>                    ╡ — COMMIT
+</code></pre></div>
+<p>SQL Server виконує контрольні точки автоматично; вручну — командою <code>CHECKPOINT</code>.</p>
+<h3 id="_17">Метод відкладеного оновлення<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>Зміни транзакції записуються <strong>лише в журнал</strong>; у БД вони потрапляють <strong>після фіксації</strong>.
+Під час відновлення: для зафіксованих транзакцій — <strong>REDO</strong>, для незафіксованих — нічого
+(у БД їх змін немає). UNDO не потрібен.</p>
+<h3 id="_18">Метод негайного оновлення<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>Зміни записуються в БД <strong>одразу</strong> (після запису в журнал за правилом WAL), ще до фіксації.
+Під час відновлення: зафіксовані — <strong>REDO</strong>, незафіксовані — <strong>UNDO</strong> за образами «до».
+Цей метод (алгоритм ARIES) використовує SQL Server.</p>
+<h3 id="_19">Метод тіньового сторінкового обміну<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>БД розглядається як набір сторінок, доступних через <strong>таблицю сторінок</strong>. Транзакція має
+дві таблиці: <strong>поточну</strong> і <strong>тіньову</strong>. При зміні сторінки її нова версія пишеться в
+<strong>нове</strong> місце, і поточна таблиця вказує на нову копію; тіньова — на стару. Фіксація —
+атомарна заміна тіньової таблиці поточною; відкат — просто відкинути поточну таблицю.
+Журнал не потрібен, але дані фрагментуються, а збирання сміття ускладнюється.
+(Схожий принцип «копіювання при записі» використовують SQLite у режимі WAL, LMDB, файлові
+системи ZFS і Btrfs.)</p>
+<h3 id="sql-server">Резервне копіювання та відновлення в SQL Server<a class="headerlink" href="#sql-server" title="Permanent link">&para;</a></h3>
+<p><strong>Модель відновлення</strong> визначає, що зберігається в журналі:
+<code>SIMPLE</code> (журнал усікається на контрольних точках), <code>FULL</code> (зберігається все до
+резервного копіювання журналу — можна відновити на будь-який момент часу),
+<code>BULK_LOGGED</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="p">;</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">RECOVERY</span><span class="w"> </span><span class="k">FULL</span><span class="p">;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">dir</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">SERVERPROPERTY</span><span class="p">(</span><span class="s1">'InstanceDefaultBackupPath'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">));</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">full</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">dir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/UniversityDB_full.bak'</span><span class="p">,</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">        </span><span class="o">@</span><span class="n">log</span><span class="w">  </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">dir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">'/UniversityDB_log.trn'</span><span class="p">;</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="c1">-- Повна резервна копія</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="n">BACKUP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">full</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">INIT</span><span class="p">,</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Full backup'</span><span class="p">;</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="c1">-- «Випадкове» видалення даних</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Payment</span><span class="p">;</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="c1">-- Резервна копія журналу (містить і помилкове видалення)</span>
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="n">BACKUP</span><span class="w"> </span><span class="n">LOG</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">log</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">INIT</span><span class="p">;</span>
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="c1">-- Відновлення: повна копія + журнал до моменту ПЕРЕД видаленням</span>
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="c1">-- (тут для простоти відновлюємо лише повну копію)</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">SINGLE_USER</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">IMMEDIATE</span><span class="p">;</span>
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a><span class="n">RESTORE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">full</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">,</span><span class="w"> </span><span class="n">RECOVERY</span><span class="p">;</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">MULTI_USER</span><span class="p">;</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PaymentsRestored</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Payment</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 8: дані повернулися</span>
+</code></pre></div>
+<p>Для відновлення на момент часу використовують
+<code>RESTORE LOG ... WITH STOPAT = '2025-06-01T12:00:00'</code>.</p>
+<h2 id="87-sql">8.7. Управління транзакціями за допомогою мови SQL<a class="headerlink" href="#87-sql" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Оператор</th>
+<th>Призначення</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BEGIN TRAN[SACTION] [ім'я]</code></td>
+<td>почати явну транзакцію</td>
+</tr>
+<tr>
+<td><code>COMMIT [TRAN]</code></td>
+<td>зафіксувати</td>
+</tr>
+<tr>
+<td><code>ROLLBACK [TRAN] [точка]</code></td>
+<td>відкотити повністю або до точки збереження</td>
+</tr>
+<tr>
+<td><code>SAVE TRAN[SACTION] точка</code></td>
+<td>створити точку збереження</td>
+</tr>
+<tr>
+<td><code>SET TRANSACTION ISOLATION LEVEL ...</code></td>
+<td>рівень ізоляції сеансу</td>
+</tr>
+<tr>
+<td><code>SET XACT_ABORT ON</code></td>
+<td>автоматичний відкат при будь-якій помилці</td>
+</tr>
+<tr>
+<td><code>SET IMPLICIT_TRANSACTIONS ON</code></td>
+<td>режим неявних транзакцій</td>
+</tr>
+<tr>
+<td><code>SET LOCK_TIMEOUT мс</code></td>
+<td>максимальний час очікування блокування</td>
+</tr>
+<tr>
+<td><code>@@TRANCOUNT</code>, <code>XACT_STATE()</code></td>
+<td>кількість відкритих транзакцій, стан транзакції</td>
+</tr>
+<tr>
+<td>Табличні підказки <code>WITH (UPDLOCK / HOLDLOCK / NOLOCK / READPAST)</code></td>
+<td>керування блокуваннями для окремої таблиці в запиті</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Вкладені транзакції</strong> в SQL Server — лише лічильник: внутрішній <code>COMMIT</code> тільки
+зменшує <code>@@TRANCOUNT</code>, а <code>ROLLBACK</code> будь-де відкочує <strong>все</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span><span class="w">                                   </span><span class="c1">-- @@TRANCOUNT = 1</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Одеса'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span><span class="w">                               </span><span class="c1">-- @@TRANCOUNT = 2</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Ізмаїл'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="k">COMMIT</span><span class="p">;</span><span class="w">                                   </span><span class="c1">-- @@TRANCOUNT = 1, нічого не зафіксовано!</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">TRANCOUNT</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TranCount</span><span class="p">;</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="k">ROLLBACK</span><span class="p">;</span><span class="w">                                     </span><span class="c1">-- відкочує обидві зміни</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span><span class="w">   </span><span class="c1">-- Одеса (як було)</span>
+</code></pre></div>
+<h2 id="_20">Контрольні питання<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що таке транзакція? Поясніть властивості ACID на прикладі оплати навчання.</li>
+<li>Які стани проходить транзакція?</li>
+<li>Опишіть аномалії паралельного доступу. Які рівні ізоляції їх усувають?</li>
+<li>Що таке серіалізовний розклад? Як перевірити серіалізовність за графом передування?</li>
+<li>Що таке двофазний протокол блокування? Чим строгий 2PL відрізняється від звичайного?</li>
+<li>Як SQL Server виявляє взаємоблокування? Як застосування має реагувати на помилку 1205?</li>
+<li>Як працюють методи впорядкування за часовими мітками? Що таке правило Томаса?</li>
+<li>Чим оптимістичні методи відрізняються від песимістичних? Наведіть приклад з <code>rowversion</code>.</li>
+<li>Яку інформацію містить журнал транзакцій? Що таке правило WAL?</li>
+<li>Порівняйте методи відкладеного та негайного оновлення і тіньового сторінкового обміну.</li>
+<li>Навіщо потрібні контрольні точки?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../topic7/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Тема 7. Мови запитів">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Тема 7. Мови запитів
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../topic9/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Тема 9. Розподілені бази даних">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Тема 9. Розподілені бази даних
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1722 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Навчальний курс «Бази даних» з прикладами на Microsoft SQL Server">
+      
+      
+      
+        <link rel="canonical" href="https://shpil1993.github.io/DBTutorial/module1/topic2/">
+      
+      
+        <link rel="prev" href="../topic1/">
+      
+      
+        <link rel="next" href="../topic3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Тема 2. Інфологічна модель - Бази даних</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="Бази даних" class="md-header__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Бази даних
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Тема 2. Інфологічна модель
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Бази даних" class="md-nav__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Бази даних
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тестова база даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 1. Основи проектування БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 1. Основи проектування БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 1. Бази та банки даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 2. Інфологічна модель
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 2. Інфологічна модель
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Основні поняття
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Рівні моделей даних
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Характеристика зв'язків
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Характеристика зв&#39;язків">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Типи асоціацій
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Класифікація сутностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. Аналіз предметної області
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Розробка універсального відношення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-er-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7. Розробка ER-моделі предметної області
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7. Розробка ER-моделі предметної області">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#er-sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як зв'язки ER-моделі реалізуються в SQL Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перевірка кардинальності на даних
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 3. Моделі даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 4. Проектування реляційних БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 5. Фізична організація БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 6. Організація баз знань
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/topic7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 7. Мови запитів
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/topic8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 8. Управління транзакціями
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/topic9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 9. Розподілені бази даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Основні поняття
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Рівні моделей даних
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Характеристика зв'язків
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Характеристика зв&#39;язків">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Типи асоціацій
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Класифікація сутностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. Аналіз предметної області
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Розробка універсального відношення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-er-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7. Розробка ER-моделі предметної області
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7. Розробка ER-моделі предметної області">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#er-sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як зв'язки ER-моделі реалізуються в SQL Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перевірка кардинальності на даних
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="2">Тема 2. Інфологічна модель даних<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h2 id="21">2.1. Основні поняття<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p><strong>Предметна область (ПО)</strong> — частина реального світу, дані про яку зберігаються в БД
+(у нашому прикладі — навчальний процес університету).</p>
+<p><strong>Інфологічна модель</strong> — опис предметної області, не прив'язаний до конкретної СКБД,
+зрозумілий і замовнику, і розробнику. Найпоширеніший спосіб її побудови — модель
+<strong>«сутність — зв'язок»</strong> (ER-модель, Entity–Relationship, П. Чен, 1976).</p>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Визначення</th>
+<th>Приклад</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Сутність</strong> (entity)</td>
+<td>клас реальних чи абстрактних об'єктів, про які зберігається інформація</td>
+<td>Студент, Група, Дисципліна</td>
+</tr>
+<tr>
+<td><strong>Екземпляр сутності</strong></td>
+<td>конкретний об'єкт класу</td>
+<td>студент Петренко Іван</td>
+</tr>
+<tr>
+<td><strong>Атрибут</strong></td>
+<td>властивість сутності</td>
+<td>Прізвище, Дата народження</td>
+</tr>
+<tr>
+<td><strong>Ключ</strong></td>
+<td>атрибут (набір), що однозначно ідентифікує екземпляр</td>
+<td>Номер залікової книжки</td>
+</tr>
+<tr>
+<td><strong>Зв'язок</strong> (relationship)</td>
+<td>асоціація між сутностями</td>
+<td>Студент <em>навчається в</em> Групі</td>
+</tr>
+</tbody>
+</table>
+<h2 id="22">2.2. Рівні моделей даних<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    A["Предметна область"] --&gt; B["Інфологічна&lt;br/&gt;(концептуальна) модель&lt;br/&gt;&lt;i&gt;ER-діаграма&lt;/i&gt;"]
+    B --&gt; C["Даталогічна&lt;br/&gt;(логічна) модель&lt;br/&gt;&lt;i&gt;таблиці, ключі&lt;/i&gt;"]
+    C --&gt; D["Фізична модель&lt;br/&gt;&lt;i&gt;типи, індекси, файли&lt;/i&gt;"]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Рівень</th>
+<th>Залежить від</th>
+<th>Результат для UniversityDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Інфологічний</td>
+<td>лише від предметної області</td>
+<td>ER-діаграма: сутності Студент, Група, …</td>
+</tr>
+<tr>
+<td>Даталогічний</td>
+<td>від типу моделі даних (реляційна)</td>
+<td>відношення <code>Student(StudentId, GroupId, …)</code></td>
+</tr>
+<tr>
+<td>Фізичний</td>
+<td>від конкретної СКБД</td>
+<td><code>CREATE TABLE dbo.Student (... NVARCHAR(50) ...)</code>, індекси</td>
+</tr>
+</tbody>
+</table>
+<h2 id="23">2.3. Характеристика зв'язків<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<p>Зв'язок характеризується двома властивостями:</p>
+<p><strong>Кардинальність</strong> (потужність) — скільки екземплярів однієї сутності може бути пов'язано
+з одним екземпляром іншої:</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Позначення</th>
+<th>Приклад</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Один до одного</td>
+<td>1 : 1</td>
+<td>Група — Староста групи</td>
+</tr>
+<tr>
+<td>Один до багатьох</td>
+<td>1 : N</td>
+<td>Група — Студенти</td>
+</tr>
+<tr>
+<td>Багато до багатьох</td>
+<td>M : N</td>
+<td>Студенти — Дисципліни</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Обов'язковість</strong> (клас належності) — чи кожен екземпляр сутності <strong>мусить</strong> брати участь
+у зв'язку:</p>
+<ul>
+<li><em>обов'язкова</em> — кожен студент обов'язково належить до групи;</li>
+<li><em>необов'язкова</em> — група може не мати куратора (група ФН-24).</li>
+</ul>
+<h3 id="_1">Типи асоціацій<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>Асоціація — це «напрямлений» зв'язок від однієї сутності до іншої. Розрізняють чотири типи:</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th style="text-align: center;">Позначення</th>
+<th>Скільки екземплярів B відповідає одному A</th>
+<th>Приклад (A → B)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Проста</td>
+<td style="text-align: center;"><strong>1</strong></td>
+<td>рівно один</td>
+<td>Студент → Група</td>
+</tr>
+<tr>
+<td>Умовна</td>
+<td style="text-align: center;"><strong>C</strong></td>
+<td>нуль або один</td>
+<td>Група → Куратор</td>
+</tr>
+<tr>
+<td>Множинна</td>
+<td style="text-align: center;"><strong>M</strong></td>
+<td>один або більше</td>
+<td>Група (сформована) → Студенти</td>
+</tr>
+<tr>
+<td>Умовно-множинна</td>
+<td style="text-align: center;"><strong>MC</strong></td>
+<td>нуль, один або більше</td>
+<td>Викладач → Дисципліни, які він веде</td>
+</tr>
+</tbody>
+</table>
+<p>Зв'язок описують парою асоціацій. Наприклад, «Група — Студент» = <strong>1 : MC</strong>
+(у студента рівно одна група; у групи — нуль або більше студентів).</p>
+<h2 id="24">2.4. Класифікація сутностей<a class="headerlink" href="#24" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Вид сутності</th>
+<th>Опис</th>
+<th>Приклад в UniversityDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Стрижнева</strong> (сильна)</td>
+<td>існує самостійно, не залежить від інших</td>
+<td>Факультет, Студент, Дисципліна</td>
+</tr>
+<tr>
+<td><strong>Асоціативна</strong></td>
+<td>реалізує зв'язок M:N між сутностями, може мати власні атрибути</td>
+<td>Викладання (<code>Teaching</code>), Оцінка (<code>Grade</code>)</td>
+</tr>
+<tr>
+<td><strong>Характеристична</strong> (слабка)</td>
+<td>описує іншу сутність і не існує без неї</td>
+<td>Оплата (<code>Payment</code>) — не існує без студента</td>
+</tr>
+<tr>
+<td><strong>Позначальна</strong></td>
+<td>позначає (посилається на) іншу сутність, зв'язок 1:N</td>
+<td>Група позначає кафедру (<code>DepartmentId</code>)</td>
+</tr>
+<tr>
+<td><strong>Підтип / супертип</strong></td>
+<td>ієрархія узагальнення: спільні атрибути в супертипі</td>
+<td>Людина → Студент, Викладач</td>
+</tr>
+</tbody>
+</table>
+<h2 id="25">2.5. Аналіз предметної області<a class="headerlink" href="#25" title="Permanent link">&para;</a></h2>
+<p>Опис ПО «Університет» (вимоги замовника):</p>
+<blockquote>
+<p>Університет складається з факультетів, факультети — з кафедр. На кафедрах працюють
+викладачі, які мають посаду, оклад і безпосереднього керівника. Студенти навчаються в
+академічних групах; кожна група закріплена за кафедрою і може мати куратора з числа
+викладачів. Кафедри відповідають за дисципліни; дисципліна має кількість кредитів ЄКТС
+і може вимагати попереднього вивчення інших дисциплін. Викладач читає дисципліну
+певній групі в певному семестрі. Студент отримує з дисципліни оцінку за 100-бальною
+шкалою. Студенти-контрактники вносять оплату за навчання.</p>
+</blockquote>
+<p>Аналіз тексту: <strong>іменники</strong> → кандидати в сутності та атрибути, <strong>дієслова</strong> → зв'язки.</p>
+<table>
+<thead>
+<tr>
+<th>Сутність</th>
+<th>Атрибути</th>
+<th>Зв'язки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Факультет</td>
+<td>назва, абревіатура</td>
+<td><em>складається з</em> кафедр</td>
+</tr>
+<tr>
+<td>Кафедра</td>
+<td>назва</td>
+<td><em>має</em> викладачів, групи, дисципліни</td>
+</tr>
+<tr>
+<td>Викладач</td>
+<td>ПІБ, посада, оклад, дата прийняття, e-mail</td>
+<td><em>підпорядковується</em> викладачу; <em>курує</em> групу; <em>читає</em> дисципліну</td>
+</tr>
+<tr>
+<td>Група</td>
+<td>шифр, рік вступу</td>
+<td><em>містить</em> студентів</td>
+</tr>
+<tr>
+<td>Студент</td>
+<td>№ залікової, ПІБ, дата народження, стать, e-mail, місто, форма фінансування</td>
+<td><em>навчається в</em> групі; <em>отримує</em> оцінки; <em>вносить</em> оплату</td>
+</tr>
+<tr>
+<td>Дисципліна</td>
+<td>код, назва, кредити</td>
+<td><em>вимагає</em> інших дисциплін</td>
+</tr>
+</tbody>
+</table>
+<h2 id="26">2.6. Розробка універсального відношення<a class="headerlink" href="#26" title="Permanent link">&para;</a></h2>
+<p><strong>Універсальне відношення</strong> — одна таблиця, що містить <strong>усі атрибути</strong> предметної області.
+Це відправна точка для нормалізації (<a href="../topic4/">Тема 4</a>). Його легко отримати
+з нашої БД, з'єднавши всі таблиці:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">SELECT</span><span class="w">  </span><span class="n">f</span><span class="p">.</span><span class="n">Name</span><span class="w">         </span><span class="k">AS</span><span class="w"> </span><span class="n">Faculty</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">Name</span><span class="w">         </span><span class="k">AS</span><span class="w"> </span><span class="n">Department</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="k">g</span><span class="p">.</span><span class="n">Code</span><span class="w">         </span><span class="k">AS</span><span class="w"> </span><span class="n">GroupCode</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">s</span><span class="p">.</span><span class="n">RecordBookNo</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="s1">' '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">FirstName</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Student</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="k">c</span><span class="p">.</span><span class="n">Code</span><span class="w">         </span><span class="k">AS</span><span class="w"> </span><span class="n">CourseCode</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="k">c</span><span class="p">.</span><span class="n">Title</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">Course</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">c</span><span class="p">.</span><span class="n">Credits</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">tc</span><span class="p">.</span><span class="n">LastName</span><span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">Teacher</span><span class="p">,</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="n">tc</span><span class="p">.</span><span class="k">Position</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="n">t</span><span class="p">.</span><span class="n">Semester</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="n">gr</span><span class="p">.</span><span class="n">Score</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">INTO</span><span class="w"> </span><span class="o">#</span><span class="n">UniversalRelation</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Grade</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">gr</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w">      </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">gr</span><span class="p">.</span><span class="n">StudentId</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">StudentGroup</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">GroupId</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">GroupId</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Department</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="n">d</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">DepartmentId</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">DepartmentId</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Faculty</span><span class="w">      </span><span class="k">AS</span><span class="w"> </span><span class="n">f</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">FacultyId</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">FacultyId</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teaching</span><span class="w">     </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">TeachingId</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">gr</span><span class="p">.</span><span class="n">TeachingId</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w">       </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CourseId</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">CourseId</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w">      </span><span class="k">AS</span><span class="w"> </span><span class="n">tc</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">tc</span><span class="p">.</span><span class="n">TeacherId</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">TeacherId</span><span class="p">;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">TOP</span><span class="w"> </span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">UniversalRelation</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">RecordBookNo</span><span class="p">,</span><span class="w"> </span><span class="n">CourseCode</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th>Faculty</th>
+<th>Department</th>
+<th>GroupCode</th>
+<th>RecordBookNo</th>
+<th>Student</th>
+<th>CourseCode</th>
+<th>Course</th>
+<th style="text-align: right;">Credits</th>
+<th>Teacher</th>
+<th>Position</th>
+<th style="text-align: right;">Semester</th>
+<th style="text-align: right;">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Факультет інформаційних технологій</td>
+<td>Кафедра програмної інженерії</td>
+<td>ПІ-21</td>
+<td>21010001</td>
+<td>Петренко Іван</td>
+<td>DB101</td>
+<td>Бази даних</td>
+<td style="text-align: right;">6.0</td>
+<td>Шевченко</td>
+<td>професор</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">67</td>
+</tr>
+<tr>
+<td>Факультет інформаційних технологій</td>
+<td>Кафедра програмної інженерії</td>
+<td>ПІ-21</td>
+<td>21010001</td>
+<td>Петренко Іван</td>
+<td>MATH101</td>
+<td>Вища математика</td>
+<td style="text-align: right;">6.0</td>
+<td>Мороз</td>
+<td>доцент</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">55</td>
+</tr>
+<tr>
+<td>Факультет інформаційних технологій</td>
+<td>Кафедра програмної інженерії</td>
+<td>ПІ-21</td>
+<td>21010001</td>
+<td>Петренко Іван</td>
+<td>PRG101</td>
+<td>Основи програмування</td>
+<td style="text-align: right;">5.0</td>
+<td>Бондар</td>
+<td>доцент</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr>
+<td>Факультет інформаційних технологій</td>
+<td>Кафедра програмної інженерії</td>
+<td>ПІ-21</td>
+<td>21010001</td>
+<td>Петренко Іван</td>
+<td>PRG201</td>
+<td>Об'єктно-орієнтоване програмування</td>
+<td style="text-align: right;">5.0</td>
+<td>Ткаченко</td>
+<td>асистент</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">96</td>
+</tr>
+<tr>
+<td>Факультет інформаційних технологій</td>
+<td>Кафедра програмної інженерії</td>
+<td>ПІ-21</td>
+<td>21010002</td>
+<td>Іваненко Олена</td>
+<td>DB101</td>
+<td>Бази даних</td>
+<td style="text-align: right;">6.0</td>
+<td>Шевченко</td>
+<td>професор</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>Проблеми універсального відношення добре видно на цих даних (виконуйте в тому самому
+вікні запитів, бо <code>#UniversalRelation</code> — тимчасова таблиця сеансу):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- Надлишковість: назва факультету повторюється в кожному рядку</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Faculty</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Repeats</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">UniversalRelation</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Faculty</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">-- Аномалія оновлення: щоб перейменувати дисципліну, треба змінити багато рядків</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">-- (а пропуск хоча б одного дасть суперечливі дані)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">RowsToUpdate</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">#</span><span class="n">UniversalRelation</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CourseCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DB101'</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">-- Аномалія вставки: нову дисципліну «Розподілені системи» неможливо додати,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1">-- доки її ніхто не вивчає й не отримав оцінку.</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1">-- Аномалія видалення: видаливши оцінки групи, втратимо інформацію про її куратора.</span>
+</code></pre></div>
+<p>Усунення цих аномалій — мета <strong>нормалізації</strong>, яка розбиває універсальне відношення на
+таблиці, що ми бачимо на ER-діаграмі.</p>
+<h2 id="27-er-">2.7. Розробка ER-моделі предметної області<a class="headerlink" href="#27-er-" title="Permanent link">&para;</a></h2>
+<p>Етапи побудови ER-моделі:</p>
+<ol>
+<li>Виділити <strong>сутності</strong> та їх <strong>ключі</strong>.</li>
+<li>Визначити <strong>атрибути</strong> кожної сутності.</li>
+<li>Визначити <strong>зв'язки</strong>, їх кардинальність та обов'язковість.</li>
+<li>Замінити зв'язки M:N <strong>асоціативними сутностями</strong>.</li>
+<li>Виділити <strong>підтипи</strong> (за потреби) та перевірити модель із замовником.</li>
+</ol>
+<p>ER-діаграма ПО «Університет» (нотація «воронячої лапки»: <code>||</code> — рівно один,
+<code>o|</code> — нуль або один, <code>o{</code> — нуль або більше, <code>|{</code> — один або більше):</p>
+<pre class="mermaid"><code>erDiagram
+    FACULTY    ||--|{ DEPARTMENT : "складається з"
+    DEPARTMENT ||--o{ TEACHER    : "має"
+    DEPARTMENT ||--o{ GROUP      : "закріплена"
+    DEPARTMENT ||--o{ COURSE     : "відповідає за"
+    TEACHER    |o--o{ TEACHER    : "підпорядковується"
+    TEACHER    |o--o{ GROUP      : "курує"
+    GROUP      ||--o{ STUDENT    : "містить"
+    COURSE     }o--o{ COURSE     : "вимагає"
+    TEACHER    ||--o{ TEACHING   : ""
+    COURSE     ||--o{ TEACHING   : ""
+    GROUP      ||--o{ TEACHING   : ""
+    STUDENT    ||--o{ GRADE      : ""
+    TEACHING   ||--o{ GRADE      : ""
+    STUDENT    ||--o{ PAYMENT    : "вносить"</code></pre>
+<p>Повна ER-діаграма з атрибутами — на сторінці <a href="../../database/#er-діаграма">Тестова база даних</a>.</p>
+<h3 id="er-sql-server">Як зв'язки ER-моделі реалізуються в SQL Server<a class="headerlink" href="#er-sql-server" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">1 : N</label><label for="__tabbed_1_2">1 : 1</label><label for="__tabbed_1_3">M : N</label><label for="__tabbed_1_4">Підтипи</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Зовнішній ключ на боці «багато»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Кожен студент належить рівно одній групі (обов'язковий зв'язок: NOT NULL)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">is_nullable</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">columns</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">object_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OBJECT_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">'dbo.Student'</span><span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'GroupId'</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Зовнішній ключ + обмеження <code>UNIQUE</code> (один староста на групу, і студент — староста
+не більше ніж однієї групи):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">GroupLeader</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">GroupId</span><span class="w">   </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">StudentGroup</span><span class="p">(</span><span class="n">GroupId</span><span class="p">),</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">StudentId</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w">      </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="p">(</span><span class="n">StudentId</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">);</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">GroupLeader</span><span class="w"> </span><span class="p">(</span><span class="n">GroupId</span><span class="p">,</span><span class="w"> </span><span class="n">StudentId</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1">-- Помилка: студент 2 вже староста (порушення UNIQUE)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">GroupLeader</span><span class="w"> </span><span class="p">(</span><span class="n">GroupId</span><span class="p">,</span><span class="w"> </span><span class="n">StudentId</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">GroupLeader</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Окрема асоціативна таблиця з двома зовнішніми ключами:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Дисципліна «Штучний інтелект» вимагає двох дисциплін,</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1">-- а «Вища математика» є пререквізитом для двох дисциплін</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Title</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Course</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Title</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Requires</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">CoursePrerequisite</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cp</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CourseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cp</span><span class="p">.</span><span class="n">CourseId</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">CourseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cp</span><span class="p">.</span><span class="n">PrereqCourseId</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Title</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Супертип <code>Person</code> зі спільними атрибутами і підтипи з власними:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Person</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">PersonId</span><span class="w">   </span><span class="nb">INT</span><span class="w"> </span><span class="k">IDENTITY</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">FullName</span><span class="w">   </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">PersonType</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">PersonType</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'S'</span><span class="p">,</span><span class="w"> </span><span class="s1">'T'</span><span class="p">)),</span><span class="w">  </span><span class="c1">-- дискримінатор</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">UQ_Person_Type</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="n">PersonType</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">);</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonStudent</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="n">PersonId</span><span class="w">   </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">PersonType</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="s1">'S'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="n">PERSISTED</span><span class="p">,</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">GroupCode</span><span class="w">  </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="n">PersonType</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Person</span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="n">PersonType</span><span class="p">)</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">);</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonTeacher</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">PersonId</span><span class="w">   </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="n">PersonType</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="s1">'T'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="n">PERSISTED</span><span class="p">,</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="k">Position</span><span class="w">   </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="n">PersonType</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Person</span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="n">PersonType</span><span class="p">)</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="p">);</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Person</span><span class="w"> </span><span class="p">(</span><span class="n">FullName</span><span class="p">,</span><span class="w"> </span><span class="n">PersonType</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">'Петренко Іван'</span><span class="p">,</span><span class="w"> </span><span class="s1">'S'</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">'Шевченко Ірина'</span><span class="p">,</span><span class="w"> </span><span class="s1">'T'</span><span class="p">);</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonStudent</span><span class="w"> </span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="n">GroupCode</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'ПІ-21'</span><span class="p">);</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonTeacher</span><span class="w"> </span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="k">Position</span><span class="p">)</span><span class="w">  </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'професор'</span><span class="p">);</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="c1">-- Помилка: особа 1 — студент, тому не може бути викладачем</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonTeacher</span><span class="w"> </span><span class="p">(</span><span class="n">PersonId</span><span class="p">,</span><span class="w"> </span><span class="k">Position</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'доцент'</span><span class="p">);</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonStudent</span><span class="p">,</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">PersonTeacher</span><span class="p">,</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Person</span><span class="p">;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="_2">Перевірка кардинальності на даних<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>ER-модель каже, що в групи може бути <strong>нуль</strong> студентів і <strong>нуль</strong> кураторів (MC та C).
+Перевіримо, що таке справді трапляється:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Code</span><span class="p">,</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">)</span><span class="w">                         </span><span class="k">AS</span><span class="w"> </span><span class="n">Students</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">       </span><span class="k">ISNULL</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'— немає куратора —'</span><span class="p">)</span><span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="n">Curator</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">StudentGroup</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">GroupId</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">GroupId</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Teacher</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">TeacherId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">CuratorId</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">LastName</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">Code</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th style="text-align: right;">Students</th>
+<th>Curator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ЕК-22</td>
+<td style="text-align: right;">4</td>
+<td>Мороз</td>
+</tr>
+<tr>
+<td>КН-21</td>
+<td style="text-align: right;">4</td>
+<td>Кравченко</td>
+</tr>
+<tr>
+<td>ПІ-21</td>
+<td style="text-align: right;">5</td>
+<td>Бондар</td>
+</tr>
+<tr>
+<td>ПІ-22</td>
+<td style="text-align: right;">4</td>
+<td>Ткаченко</td>
+</tr>
+<tr>
+<td>ФН-24</td>
+<td style="text-align: right;">0</td>
+<td>— немає куратора —</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="_3">Контрольні питання<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Назвіть рівні моделей даних і поясніть, від чого залежить кожен із них.</li>
+<li>Чим кардинальність зв'язку відрізняється від його обов'язковості?</li>
+<li>Наведіть приклади чотирьох типів асоціацій (1, C, M, MC) у ПО «Університет».</li>
+<li>Чим асоціативна сутність відрізняється від характеристичної?</li>
+<li>Що таке універсальне відношення? Які аномалії воно має?</li>
+<li>Як реалізувати зв'язки 1:1 і M:N у реляційній БД?</li>
+<li>Побудуйте ER-модель для ПО «Бібліотека» (книги, автори, читачі, видачі).</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../topic1/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Тема 1. Бази та банки даних">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Тема 1. Бази та банки даних
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../topic3/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Тема 3. Моделі даних">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Тема 3. Моделі даних
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2272 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Навчальний курс «Бази даних» з прикладами на Microsoft SQL Server">
+      
+      
+      
+        <link rel="canonical" href="https://shpil1993.github.io/DBTutorial/module2/topic9/">
+      
+      
+        <link rel="prev" href="../topic8/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Тема 9. Розподілені бази даних - Бази даних</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="Бази даних" class="md-header__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Бази даних
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Тема 9. Розподілені бази даних
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Бази даних" class="md-nav__button md-logo" aria-label="Бази даних" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Бази даних
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shpil1993/DBTutorial" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тестова база даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 1. Основи проектування БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 1. Основи проектування БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 1. Бази та банки даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 2. Інфологічна модель
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 3. Моделі даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 4. Проектування реляційних БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 5. Фізична організація БД
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/topic6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 6. Організація баз знань
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модуль 2. Запити, транзакції, розподілені БД
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 7. Мови запитів
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topic8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 8. Управління транзакціями
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 9. Розподілені бази даних
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Тема 9. Розподілені бази даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Концепція розподілених баз даних. Основні поняття
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1. Концепція розподілених баз даних. Основні поняття">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12 правил К. Дейта для розподілених СУБД
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рівні прозорості
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2. Принципи створення розподілених баз даних
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3. Проектування розподіленої бази даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3. Проектування розподіленої бази даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підготовка прикладів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4. Фрагментація даних у розподіленій базі даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4. Фрагментація даних у розподіленій базі даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Горизонтальна фрагментація
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вертикальна фрагментація
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Змішана фрагментація
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5. Реплікація даних у розподіленій базі даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5. Реплікація даних у розподіленій базі даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Реплікація в SQL Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модель асинхронної реплікації з основною копією
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6. Стратегії розміщення даних у розподіленій базі даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6. Стратегії розміщення даних у розподіленій базі даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розподілені запити та прозорість розміщення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#97" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7. Управління розподіленими транзакціями
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#98" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.8. Протоколи двофазної фіксації транзакції та аварійного завершення
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.8. Протоколи двофазної фіксації транзакції та аварійного завершення">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Обробка відмов у 2PC (протоколи завершення)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.9. Управління паралельним доступом у розподіленому середовищі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.9. Управління паралельним доступом у розподіленому середовищі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Протоколи блокування
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Протоколи з часовими відмітками
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#910" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.10. Відновлення розподілених баз даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.10. Відновлення розподілених баз даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Протоколи відновлення та проведення виборів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Очищення після прикладів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Концепція розподілених баз даних. Основні поняття
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1. Концепція розподілених баз даних. Основні поняття">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12 правил К. Дейта для розподілених СУБД
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рівні прозорості
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2. Принципи створення розподілених баз даних
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3. Проектування розподіленої бази даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3. Проектування розподіленої бази даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підготовка прикладів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4. Фрагментація даних у розподіленій базі даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4. Фрагментація даних у розподіленій базі даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Горизонтальна фрагментація
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вертикальна фрагментація
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Змішана фрагментація
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5. Реплікація даних у розподіленій базі даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5. Реплікація даних у розподіленій базі даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Реплікація в SQL Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модель асинхронної реплікації з основною копією
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6. Стратегії розміщення даних у розподіленій базі даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6. Стратегії розміщення даних у розподіленій базі даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розподілені запити та прозорість розміщення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#97" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.7. Управління розподіленими транзакціями
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#98" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.8. Протоколи двофазної фіксації транзакції та аварійного завершення
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.8. Протоколи двофазної фіксації транзакції та аварійного завершення">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Обробка відмов у 2PC (протоколи завершення)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.9. Управління паралельним доступом у розподіленому середовищі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.9. Управління паралельним доступом у розподіленому середовищі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Протоколи блокування
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Протоколи з часовими відмітками
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#910" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.10. Відновлення розподілених баз даних
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.10. Відновлення розподілених баз даних">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Протоколи відновлення та проведення виборів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Очищення після прикладів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="9">Тема 9. Розподілені бази даних<a class="headerlink" href="#9" title="Permanent link">&para;</a></h1>
+<h2 id="91">9.1. Концепція розподілених баз даних. Основні поняття<a class="headerlink" href="#91" title="Permanent link">&para;</a></h2>
+<p><strong>Розподілена база даних (РБД)</strong> — сукупність логічно пов'язаних баз даних, фізично
+розміщених на різних вузлах комп'ютерної мережі.</p>
+<p><strong>Розподілена СКБД (РСКБД)</strong> — програмна система, що керує РБД і робить розподіл
+<strong>прозорим</strong> для користувачів: користувач працює з РБД так, ніби вона централізована.</p>
+<p>Приклад: університет має кампуси в <strong>Києві</strong> (ФІТ) і <strong>Львові</strong> (ЕФ). Дані про студентів
+зберігаються там, де вони переважно використовуються, але ректорат бачить єдину базу.</p>
+<pre class="mermaid"><code>flowchart TB
+    subgraph Kyiv["Вузол «Київ»"]
+        A1["Застосування деканату ФІТ"] --&gt; D1["РСКБД"]
+        D1 --&gt; DB1[("UniKyiv&lt;br/&gt;студенти ФІТ")]
+    end
+    subgraph Lviv["Вузол «Львів»"]
+        A2["Застосування деканату ЕФ"] --&gt; D2["РСКБД"]
+        D2 --&gt; DB2[("UniLviv&lt;br/&gt;студенти ЕФ")]
+    end
+    R["Ректорат: єдиний запит&lt;br/&gt;до всіх студентів"] --&gt; D1
+    D1 &lt;-- мережа --&gt; D2</code></pre>
+<p>Розрізняють:</p>
+<ul>
+<li><strong>однорідні</strong> РБД — на всіх вузлах однакова СКБД (наприклад, лише SQL Server);</li>
+<li><strong>неоднорідні</strong> (гетерогенні) — різні СКБД (SQL Server + PostgreSQL + Oracle), що
+  взаємодіють через шлюзи;</li>
+<li><strong>мультибази даних (федеративні)</strong> — автономні БД, об'єднані спільним рівнем доступу.</li>
+</ul>
+<h3 id="12">12 правил К. Дейта для розподілених СУБД<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Локальна автономія вузлів.</li>
+<li>Відсутність опори на центральний вузол.</li>
+<li>Безперервне функціонування (без планових зупинок).</li>
+<li>Незалежність від розташування (прозорість розміщення).</li>
+<li>Незалежність від фрагментації.</li>
+<li>Незалежність від реплікації.</li>
+<li>Обробка розподілених запитів.</li>
+<li>Керування розподіленими транзакціями.</li>
+<li>Незалежність від апаратного забезпечення.</li>
+<li>Незалежність від операційної системи.</li>
+<li>Незалежність від мережі.</li>
+<li>Незалежність від СКБД.</li>
+</ol>
+<h3 id="_1">Рівні прозорості<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Прозорість</th>
+<th>Користувач не мусить знати…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>фрагментації</strong></td>
+<td>що таблицю розбито на частини</td>
+</tr>
+<tr>
+<td><strong>розміщення</strong></td>
+<td>на якому вузлі лежить фрагмент</td>
+</tr>
+<tr>
+<td><strong>реплікації</strong></td>
+<td>що існує кілька копій даних</td>
+</tr>
+<tr>
+<td><strong>локального відображення</strong></td>
+<td>які імена та структури має фрагмент на конкретному вузлі</td>
+</tr>
+<tr>
+<td><strong>транзакцій</strong></td>
+<td>що транзакція зачіпає кілька вузлів</td>
+</tr>
+</tbody>
+</table>
+<h2 id="92">9.2. Принципи створення розподілених баз даних<a class="headerlink" href="#92" title="Permanent link">&para;</a></h2>
+<p><strong>Переваги:</strong> відповідність розподіленій структурі організації; вища доступність
+(відмова одного вузла не зупиняє всю систему); локальна обробка даних — швидше та
+дешевше; масштабованість.</p>
+<p><strong>Недоліки:</strong> складність проектування та адміністрування; складніше забезпечити
+цілісність і безпеку; витрати на мережевий обмін; складні механізми розподілених
+транзакцій і відновлення.</p>
+<h2 id="93">9.3. Проектування розподіленої бази даних<a class="headerlink" href="#93" title="Permanent link">&para;</a></h2>
+<p>Етапи:</p>
+<ol>
+<li>Побудова <strong>глобальної концептуальної схеми</strong> (як для централізованої БД).</li>
+<li><strong>Фрагментація</strong> відношень.</li>
+<li><strong>Розміщення</strong> фрагментів по вузлах (з реплікацією чи без).</li>
+<li>Проектування <strong>локальних схем</strong> на кожному вузлі.</li>
+</ol>
+<p>Підходи: <strong>низхідний</strong> (від глобальної схеми до фрагментів — для нових систем) і
+<strong>висхідний</strong> (інтеграція вже наявних БД у федеративну систему).</p>
+<h3 id="_2">Підготовка прикладів<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Змоделюємо два вузли окремими базами даних на одному сервері: <code>UniKyiv</code> і <code>UniLviv</code>.
+На реальній системі це були б окремі сервери, з'єднані <strong>зв'язаними серверами</strong>
+(linked servers) — див. <a href="#розподілені-запити-та-прозорість-розміщення">9.6</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">IF</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">'UniKyiv'</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">IF</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">'UniLviv'</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">Cyrillic_General_CI_AS</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniLviv</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">Cyrillic_General_CI_AS</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="94">9.4. Фрагментація даних у розподіленій базі даних<a class="headerlink" href="#94" title="Permanent link">&para;</a></h2>
+<p><strong>Фрагментація</strong> — розбиття відношення на частини (фрагменти), що зберігаються на різних
+вузлах. Вимоги до коректної фрагментації:</p>
+<ul>
+<li><strong>повнота</strong> — кожен кортеж (атрибут) вихідного відношення потрапляє хоча б в один фрагмент;</li>
+<li><strong>відновлюваність</strong> — вихідне відношення можна відновити з фрагментів операціями
+  реляційної алгебри (<code>UNION</code> для горизонтальної, <code>JOIN</code> для вертикальної);</li>
+<li><strong>неперетинність</strong> — кортеж (неключовий атрибут) потрапляє лише в один фрагмент.</li>
+</ul>
+<h3 id="_3">Горизонтальна фрагментація<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Відношення розбивається на підмножини <strong>рядків</strong> за умовою селекції (σ). Студентів
+розподілимо за факультетом. Факультет — атрибут не самої таблиці <code>Student</code>, а групи →
+кафедри → факультету, тому це <strong>похідна</strong> горизонтальна фрагментація (за умовою на
+пов'язаному відношенні).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- Фрагмент 1 на вузлі «Київ»: σ Faculty = ФІТ (Student)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">RecordBookNo</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">GroupId</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">FacultyId</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">       </span><span class="n">s</span><span class="p">.</span><span class="n">City</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsContract</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Scholarship</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">TuitionDebt</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">INTO</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_FIT</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">StudentGroup</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">GroupId</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">GroupId</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Department</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">DepartmentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">DepartmentId</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">FacultyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">-- Фрагмент 2 на вузлі «Львів»: σ Faculty = ЕФ (Student)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">RecordBookNo</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">GroupId</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">FacultyId</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">       </span><span class="n">s</span><span class="p">.</span><span class="n">City</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">IsContract</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">Scholarship</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">TuitionDebt</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">INTO</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_EF</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">StudentGroup</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">GroupId</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">GroupId</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Department</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">DepartmentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">DepartmentId</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">FacultyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1">-- Первинні ключі та CHECK-обмеження, що описують умову фрагментації</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_FIT</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">PK_Student_FIT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FacultyId</span><span class="p">);</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_FIT</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">CK_Student_FIT</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">FacultyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_EF</span><span class="w">  </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">PK_Student_EF</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">FacultyId</span><span class="p">);</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_EF</span><span class="w">  </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">CK_Student_EF</span><span class="w">  </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">FacultyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<p>Глобальне відношення відновлюється об'єднанням фрагментів. Створимо <strong>розподілене
+секціоноване представлення</strong> — воно забезпечує прозорість фрагментації:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">GO</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">vStudentGlobal</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">AS</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_FIT</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_EF</span><span class="p">;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">GO</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1">-- Користувач пише звичайний запит, не знаючи про фрагменти</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">FacultyId</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Students</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">vStudentGlobal</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">FacultyId</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1">-- Завдяки CHECK-обмеженням оптимізатор звертається лише до потрібного фрагмента</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">SET</span><span class="w"> </span><span class="k">STATISTICS</span><span class="w"> </span><span class="n">IO</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">LastName</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">vStudentGlobal</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FacultyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">   </span><span class="c1">-- читає лише Student_EF</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="k">SET</span><span class="w"> </span><span class="k">STATISTICS</span><span class="w"> </span><span class="n">IO</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+</code></pre></div>
+<p>Перевірка коректності фрагментації:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Повнота і відновлюваність: (усі студенти) EXCEPT (об'єднання фрагментів) = ∅</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">EXCEPT</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">vStudentGlobal</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">-- Неперетинність: фрагменти не мають спільних рядків</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_FIT</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">INTERSECT</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_EF</span><span class="p">;</span>
+</code></pre></div>
+<p>Обидва запити повертають порожній результат — фрагментація коректна.</p>
+<h3 id="_4">Вертикальна фрагментація<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Відношення розбивається на підмножини <strong>атрибутів</strong> (проекції π); <strong>первинний ключ
+входить у кожен фрагмент</strong>, щоб відношення можна було відновити з'єднанням. Наприклад,
+навчальні дані студента потрібні деканату (Київ), а фінансові — бухгалтерії (Львів):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- π StudentId, LastName, FirstName, GroupId, City (Student) — вузол «Київ»</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">FirstName</span><span class="p">,</span><span class="w"> </span><span class="n">GroupId</span><span class="p">,</span><span class="w"> </span><span class="n">City</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">INTO</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Study</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="p">;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1">-- π StudentId, IsContract, Scholarship, TuitionDebt (Student) — вузол «Львів»</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">IsContract</span><span class="p">,</span><span class="w"> </span><span class="n">Scholarship</span><span class="p">,</span><span class="w"> </span><span class="n">TuitionDebt</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">INTO</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Finance</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student</span><span class="p">;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1">-- Відновлення: з'єднання за первинним ключем</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">StudentId</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">City</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">Scholarship</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">TuitionDebt</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="k">FROM</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Study</span><span class="w">   </span><span class="k">AS</span><span class="w"> </span><span class="n">st</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Finance</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">StudentId</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_5">Змішана фрагментація<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Поєднання обох видів: спочатку горизонтальна, потім вертикальна (або навпаки).
+Наприклад, фінансові атрибути лише студентів-контрактників:
+π<sub>StudentId, TuitionDebt</sub>(σ<sub>IsContract = 1</sub>(Student)).</p>
+<h2 id="95">9.5. Реплікація даних у розподіленій базі даних<a class="headerlink" href="#95" title="Permanent link">&para;</a></h2>
+<p><strong>Реплікація</strong> — зберігання <strong>копій</strong> (реплік) одних і тих самих даних на кількох вузлах.</p>
+<table>
+<thead>
+<tr>
+<th>Переваги</th>
+<th>Недоліки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>швидке локальне читання</td>
+<td>треба підтримувати узгодженість копій</td>
+</tr>
+<tr>
+<td>висока доступність: при відмові вузла дані є на іншому</td>
+<td>оновлення дорожчі (зміни на всіх копіях)</td>
+</tr>
+<tr>
+<td>розподіл навантаження</td>
+<td>більше місця для зберігання</td>
+</tr>
+</tbody>
+</table>
+<p>Види реплікації:</p>
+<ul>
+<li><strong>синхронна (активна)</strong> — зміна застосовується до всіх копій у межах однієї
+  транзакції (через 2PC); копії завжди узгоджені, але оновлення повільні й залежать від
+  доступності всіх вузлів;</li>
+<li><strong>асинхронна (відкладена, лінива)</strong> — зміна спершу фіксується на одному вузлі, а
+  розсилається пізніше; копії тимчасово можуть розходитися (<em>узгодженість у кінцевому
+  підсумку</em>, eventual consistency).</li>
+</ul>
+<p>За місцем внесення змін: <strong>з основною копією</strong> (master–slave: змінювати можна лише
+головну копію) і <strong>з рівноправними копіями</strong> (multi-master: змінювати можна будь-яку,
+потрібне розв'язання конфліктів).</p>
+<h3 id="sql-server">Реплікація в SQL Server<a class="headerlink" href="#sql-server" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Механізм</th>
+<th>Опис</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Snapshot replication</strong></td>
+<td>періодичне копіювання повного знімка даних</td>
+</tr>
+<tr>
+<td><strong>Transactional replication</strong></td>
+<td>асинхронна передача змін з журналу транзакцій видавця передплатникам (основна копія)</td>
+</tr>
+<tr>
+<td><strong>Merge replication</strong></td>
+<td>зміни на всіх вузлах з подальшим злиттям і розв'язанням конфліктів (рівноправні копії)</td>
+</tr>
+<tr>
+<td><strong>Peer-to-peer</strong></td>
+<td>транзакційна реплікація між рівноправними вузлами</td>
+</tr>
+<tr>
+<td><strong>Always On Availability Groups</strong></td>
+<td>синхронні або асинхронні вторинні репліки всієї БД; вторинні репліки можна використовувати для читання</td>
+</tr>
+</tbody>
+</table>
+<p>Термінологія реплікації SQL Server: <strong>видавець</strong> (publisher) — джерело даних,
+<strong>дистриб'ютор</strong> (distributor) — посередник, <strong>передплатник</strong> (subscriber) — отримувач,
+<strong>публікація</strong> — набір <strong>статей</strong> (таблиць), що реплікуються.</p>
+<h3 id="_6">Модель асинхронної реплікації з основною копією<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>Справжня реплікація налаштовується майстром у SSMS і потребує агента SQL Server. Ідею
+легко змоделювати засобами <strong>відстеження змін</strong> (Change Tracking): основна копія
+дисциплін — у <code>UniversityDB</code>, репліка — на вузлі «Львів».</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- 1. Вмикаємо відстеження змін на основній копії</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">CHANGE_TRACKING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="p">(</span><span class="n">CHANGE_RETENTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">DAYS</span><span class="p">,</span><span class="w"> </span><span class="n">AUTO_CLEANUP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">);</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="n">ENABLE</span><span class="w"> </span><span class="n">CHANGE_TRACKING</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">-- 2. Початковий знімок (snapshot) на репліку + версія, до якої репліка синхронізована</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">-- На репліці CourseId без IDENTITY: ключі приходять з основної копії</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course_Replica</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">CourseId</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="n">Code</span><span class="w">     </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">   </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">Title</span><span class="w">    </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">Credits</span><span class="w">  </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">);</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course_Replica</span><span class="w"> </span><span class="p">(</span><span class="n">CourseId</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="p">)</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">CourseId</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="p">;</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">SyncState</span><span class="w"> </span><span class="p">(</span><span class="n">TableName</span><span class="w"> </span><span class="n">SYSNAME</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">LastVersion</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">SyncState</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">'Course'</span><span class="p">,</span><span class="w"> </span><span class="n">CHANGE_TRACKING_CURRENT_VERSION</span><span class="p">());</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- 3. Процедура синхронізації: застосовує до репліки зміни з моменту останньої синхронізації</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">GO</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">usp_SyncCourseReplica</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">AS</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">BEGIN</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">NOCOUNT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="k">from</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">LastVersion</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">SyncState</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TableName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Course'</span><span class="p">),</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">            </span><span class="o">@</span><span class="k">to</span><span class="w">   </span><span class="nb">BIGINT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CHANGE_TRACKING_CURRENT_VERSION</span><span class="p">();</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="n">MERGE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course_Replica</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">ct</span><span class="p">.</span><span class="n">CourseId</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">.</span><span class="n">SYS_CHANGE_OPERATION</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Op</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Credits</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">           </span><span class="k">FROM</span><span class="w"> </span><span class="n">CHANGETABLE</span><span class="p">(</span><span class="n">CHANGES</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="k">from</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ct</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">           </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">CourseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ct</span><span class="p">.</span><span class="n">CourseId</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">chg</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">       </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">CourseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">CourseId</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'D'</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">DELETE</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Credits</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">TARGET</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Op</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="s1">'D'</span><span class="w"> </span><span class="k">THEN</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">        </span><span class="k">INSERT</span><span class="w"> </span><span class="p">(</span><span class="n">CourseId</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">chg</span><span class="p">.</span><span class="n">CourseId</span><span class="p">,</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">chg</span><span class="p">.</span><span class="n">Credits</span><span class="p">);</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">SyncState</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">LastVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="k">to</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TableName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Course'</span><span class="p">;</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span><span class="n">PRINT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">N</span><span class="s1">'Синхронізовано зміни версій '</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="k">from</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'..'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="k">to</span><span class="p">);</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="k">END</span><span class="p">;</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="k">GO</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- 4. Зміни на основній копії</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">.</span><span class="mi">5</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'DB101'</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="p">(</span><span class="n">DepartmentId</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">'CLD301'</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="s1">'Хмарні обчислення'</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">-- Репліка поки що застаріла (асинхронна реплікація!)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">N</span><span class="s1">'основна'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">Copy</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'DB101'</span><span class="p">,</span><span class="w"> </span><span class="s1">'CLD301'</span><span class="p">)</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">N</span><span class="s1">'репліка'</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course_Replica</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'DB101'</span><span class="p">,</span><span class="w"> </span><span class="s1">'CLD301'</span><span class="p">);</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1">-- 5. Агент реплікації (тут — ручний виклик) поширює зміни</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="k">EXEC</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">usp_SyncCourseReplica</span><span class="p">;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">N</span><span class="s1">'репліка'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">Copy</span><span class="p">,</span><span class="w"> </span><span class="n">Code</span><span class="p">,</span><span class="w"> </span><span class="n">Credits</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Course_Replica</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Code</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'DB101'</span><span class="p">,</span><span class="w"> </span><span class="s1">'CLD301'</span><span class="p">);</span>
+</code></pre></div>
+<details class="example">
+<summary>Результат</summary>
+<p>До синхронізації:</p>
+<table>
+<thead>
+<tr>
+<th>Copy</th>
+<th>Code</th>
+<th style="text-align: right;">Credits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>основна</td>
+<td>DB101</td>
+<td style="text-align: right;">6.5</td>
+</tr>
+<tr>
+<td>основна</td>
+<td>CLD301</td>
+<td style="text-align: right;">4.0</td>
+</tr>
+<tr>
+<td>репліка</td>
+<td>DB101</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+</tbody>
+</table>
+<p>Після <code>usp_SyncCourseReplica</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Copy</th>
+<th>Code</th>
+<th style="text-align: right;">Credits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>репліка</td>
+<td>DB101</td>
+<td style="text-align: right;">6.5</td>
+</tr>
+<tr>
+<td>репліка</td>
+<td>CLD301</td>
+<td style="text-align: right;">4.0</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="96">9.6. Стратегії розміщення даних у розподіленій базі даних<a class="headerlink" href="#96" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Стратегія</th>
+<th>Опис</th>
+<th style="text-align: center;">Локальність</th>
+<th style="text-align: center;">Надійність</th>
+<th style="text-align: center;">Вартість зберігання</th>
+<th style="text-align: center;">Вартість оновлення</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Централізована</strong></td>
+<td>одна БД на одному вузлі, інші звертаються мережею</td>
+<td style="text-align: center;">низька</td>
+<td style="text-align: center;">низька</td>
+<td style="text-align: center;">низька</td>
+<td style="text-align: center;">низька</td>
+</tr>
+<tr>
+<td><strong>Фрагментована</strong> (секціонована)</td>
+<td>фрагменти без копій розміщено там, де вони найчастіше потрібні</td>
+<td style="text-align: center;">висока*</td>
+<td style="text-align: center;">низька*</td>
+<td style="text-align: center;">низька</td>
+<td style="text-align: center;">низька</td>
+</tr>
+<tr>
+<td><strong>Повна реплікація</strong></td>
+<td>повна копія БД на кожному вузлі</td>
+<td style="text-align: center;">найвища</td>
+<td style="text-align: center;">найвища</td>
+<td style="text-align: center;">найвища</td>
+<td style="text-align: center;">найвища</td>
+</tr>
+<tr>
+<td><strong>Вибіркова реплікація</strong></td>
+<td>поєднання: часто читані дані реплікуються, решта фрагментується</td>
+<td style="text-align: center;">висока*</td>
+<td style="text-align: center;">висока*</td>
+<td style="text-align: center;">середня</td>
+<td style="text-align: center;">середня</td>
+</tr>
+</tbody>
+</table>
+<p>* за умови вдалого розподілу.</p>
+<p>Вибір залежить від співвідношення <strong>читань і оновлень</strong>, вимог до <strong>доступності</strong>,
+вартості <strong>мережевого обміну</strong> та обсягу даних.</p>
+<h3 id="_7">Розподілені запити та прозорість розміщення<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><strong>Синонім</strong> приховує, де фізично лежить об'єкт; якщо фрагмент перемістять на інший сервер,
+зміниться лише визначення синоніма, а запити застосувань — ні:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">SYNONYM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">FinanceFragment</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Finance</span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Debtors</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">FinanceFragment</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TuitionDebt</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>Між різними серверами SQL Server використовують <strong>зв'язані сервери</strong>. Тоді до віддаленої
+таблиці звертаються чотиричастинним іменем <code>сервер.база.схема.таблиця</code> або через
+<code>OPENQUERY</code> (запит повністю виконується на віддаленому вузлі):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- Реєстрація віддаленого вузла (виконується на сервері «Київ»)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">EXEC</span><span class="w"> </span><span class="n">sp_addlinkedserver</span><span class="w">   </span><span class="nv">@server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'NODE_LVIV'</span><span class="p">,</span><span class="w"> </span><span class="nv">@srvproduct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">''</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">                          </span><span class="nv">@provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'MSOLEDBSQL'</span><span class="p">,</span><span class="w"> </span><span class="nv">@datasrc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'lviv-sql.univ.local'</span><span class="p">;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">EXEC</span><span class="w"> </span><span class="n">sp_addlinkedsrvlogin</span><span class="w"> </span><span class="nv">@rmtsrvname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'NODE_LVIV'</span><span class="p">,</span><span class="w"> </span><span class="nv">@useself</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'TRUE'</span><span class="p">;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1">-- Синонім на віддалений фрагмент: прозорість розміщення</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">SYNONYM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">FinanceFragment</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">NODE_LVIV</span><span class="p">.</span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Finance</span><span class="p">;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1">-- Розподілений запит: з'єднання локальної та віддаленої таблиць</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">TuitionDebt</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">FROM</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Study</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">NODE_LVIV</span><span class="p">.</span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Student_Finance</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">StudentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">StudentId</span><span class="p">;</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="c1">-- Передати запит на віддалений вузол цілком (менше даних мережею)</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="nf">OPENQUERY</span><span class="p">(</span><span class="n">NODE_LVIV</span><span class="p">,</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="s1">'SELECT StudentId, TuitionDebt FROM UniLviv.dbo.Student_Finance WHERE TuitionDebt &gt; 0'</span><span class="p">);</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Оптимізація розподілених запитів</p>
+<p>Головна вартість розподіленого запиту — <strong>передача даних мережею</strong>. Тому оптимізатор
+намагається виконати фільтрацію та агрегування на вузлі, де лежать дані, і передавати
+лише результат (стратегія <strong>напівз'єднання</strong>, semi-join: на віддалений вузол передають
+лише значення ключів з'єднання, а назад — лише рядки, що з'єднуються).</p>
+</div>
+<h2 id="97">9.7. Управління розподіленими транзакціями<a class="headerlink" href="#97" title="Permanent link">&para;</a></h2>
+<p><strong>Розподілена транзакція</strong> змінює дані на кількох вузлах. Кожна її частина на окремому
+вузлі — <strong>субтранзакція</strong>. Атомарність означає: або <strong>всі</strong> вузли фіксують зміни, або
+<strong>жоден</strong>.</p>
+<p>Компоненти: <strong>менеджер транзакцій</strong> на кожному вузлі та <strong>координатор</strong> — вузол, де
+транзакцію ініційовано. У Windows цю роль виконує служба <strong>MS DTC</strong> (Distributed
+Transaction Coordinator).</p>
+<p>На одному екземплярі SQL Server транзакція, що зачіпає кілька баз даних, уже атомарна
+(сервер сам застосовує двофазну фіксацію між базами). Переказ стипендіального фонду між
+«вузлами»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="p">(</span><span class="n">FundName</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">Amount</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="p">(</span><span class="n">FundName</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">Amount</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">,</span><span class="w"> </span><span class="mi">100000</span><span class="p">);</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">,</span><span class="w">  </span><span class="mi">50000</span><span class="p">);</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">GO</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1">-- Успішний переказ 20000 з Києва до Львова</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">20000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FundName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">;</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">20000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FundName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">;</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="k">GO</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="c1">-- Невдалий переказ: Київ не має 500000, CHECK порушено → відкат на ОБОХ вузлах</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="k">BEGIN</span><span class="w"> </span><span class="n">TRAN</span><span class="p">;</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">500000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FundName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">;</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">500000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FundName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">;</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="k">COMMIT</span><span class="p">;</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="k">GO</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">N</span><span class="s1">'Київ'</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Node</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">N</span><span class="s1">'Львів'</span><span class="p">,</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="p">;</span><span class="w">     </span><span class="c1">-- Київ 80000, Львів 70000</span>
+</code></pre></div>
+<p>Між різними серверами те саме робить <strong>розподілена транзакція</strong> (координує MS DTC):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SET</span><span class="w"> </span><span class="n">XACT_ABORT</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span><span class="w">   </span><span class="c1">-- обов'язково для розподілених транзакцій</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">BEGIN</span><span class="w"> </span><span class="k">DISTRIBUTED</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w">                  </span><span class="k">SET</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">20000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FundName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">NODE_LVIV</span><span class="p">.</span><span class="n">UniLviv</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">Fund</span><span class="w">        </span><span class="k">SET</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Amount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">20000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">FundName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">'Стипендіальний'</span><span class="p">;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">COMMIT</span><span class="p">;</span><span class="w">   </span><span class="c1">-- MS DTC виконує протокол двофазної фіксації</span>
+</code></pre></div>
+<h2 id="98">9.8. Протоколи двофазної фіксації транзакції та аварійного завершення<a class="headerlink" href="#98" title="Permanent link">&para;</a></h2>
+<p><strong>Двофазна фіксація</strong> (2PC, two-phase commit) гарантує атомарність розподіленої
+транзакції.</p>
+<p><strong>Фаза 1 — голосування (підготовка):</strong></p>
+<ol>
+<li>Координатор записує в журнал <code>begin_commit</code> і надсилає всім учасникам <code>PREPARE</code>.</li>
+<li>Кожен учасник: якщо може зафіксувати — записує свої зміни та <code>ready</code> у <strong>журнал на
+   диску</strong> і відповідає <code>READY</code> (голос «так»); інакше — записує <code>abort</code> і відповідає
+   <code>ABORT</code> (голос «ні»). Проголосувавши «так», учасник уже <strong>не може</strong> самостійно
+   відкотити транзакцію.</li>
+</ol>
+<p><strong>Фаза 2 — рішення:</strong></p>
+<ol>
+<li>Якщо <strong>всі</strong> відповіли <code>READY</code> — координатор записує <code>commit</code> і надсилає <code>GLOBAL_COMMIT</code>.
+   Якщо хоча б один відповів <code>ABORT</code> або не відповів за тайм-аут — записує <code>abort</code> і
+   надсилає <code>GLOBAL_ABORT</code>.</li>
+<li>Учасники виконують рішення, записують його в журнал і надсилають підтвердження <code>ACK</code>.</li>
+<li>Отримавши всі підтвердження, координатор записує <code>end_transaction</code>.</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Успішна фіксація</label><label for="__tabbed_1_2">Аварійне завершення</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Координатор (Київ)
+    participant P1 as Учасник 1 (Київ)
+    participant P2 as Учасник 2 (Львів)
+    Note over C: журнал: begin_commit
+    C-&gt;&gt;P1: PREPARE
+    C-&gt;&gt;P2: PREPARE
+    Note over P1: журнал: ready
+    Note over P2: журнал: ready
+    P1--&gt;&gt;C: READY
+    P2--&gt;&gt;C: READY
+    Note over C: журнал: commit
+    C-&gt;&gt;P1: GLOBAL_COMMIT
+    C-&gt;&gt;P2: GLOBAL_COMMIT
+    Note over P1,P2: фіксація, журнал: commit
+    P1--&gt;&gt;C: ACK
+    P2--&gt;&gt;C: ACK
+    Note over C: журнал: end_transaction</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Координатор (Київ)
+    participant P1 as Учасник 1 (Київ)
+    participant P2 as Учасник 2 (Львів)
+    Note over C: журнал: begin_commit
+    C-&gt;&gt;P1: PREPARE
+    C-&gt;&gt;P2: PREPARE
+    P1--&gt;&gt;C: READY
+    Note over P2: порушено CHECK&lt;br/&gt;журнал: abort
+    P2--&gt;&gt;C: ABORT
+    Note over C: журнал: abort
+    C-&gt;&gt;P1: GLOBAL_ABORT
+    C-&gt;&gt;P2: GLOBAL_ABORT
+    Note over P1: відкат за журналом
+    P1--&gt;&gt;C: ACK
+    P2--&gt;&gt;C: ACK</code></pre>
+</div>
+</div>
+</div>
+<h3 id="2pc">Обробка відмов у 2PC (протоколи завершення)<a class="headerlink" href="#2pc" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Хто і коли відмовив</th>
+<th>Дії</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Учасник не відповів на <code>PREPARE</code></td>
+<td>координатор за тайм-аутом приймає рішення <code>GLOBAL_ABORT</code></td>
+</tr>
+<tr>
+<td>Учасник відмовив <strong>до</strong> голосування</td>
+<td>після відновлення він сам відкочує транзакцію</td>
+</tr>
+<tr>
+<td>Учасник відмовив <strong>після</strong> <code>READY</code></td>
+<td>після відновлення запитує рішення в координатора (чи інших учасників) і виконує його</td>
+</tr>
+<tr>
+<td>Координатор відмовив <strong>до</strong> рішення</td>
+<td>учасники, що проголосували <code>READY</code>, <strong>блокуються</strong>: не можуть ні зафіксувати, ні відкотити, доки координатор не відновиться</td>
+</tr>
+<tr>
+<td>Координатор відмовив <strong>після</strong> рішення</td>
+<td>після відновлення повторно розсилає рішення за своїм журналом</td>
+</tr>
+</tbody>
+</table>
+<p>Головний недолік 2PC — <strong>блокування</strong> учасників при відмові координатора (вони тримають
+блокування даних і чекають). У MS DTC такі транзакції мають стан <strong>in-doubt</strong>, і
+адміністратор може вирішити їх вручну.</p>
+<p><strong>Трифазна фіксація (3PC)</strong> додає між голосуванням і фіксацією фазу <code>PRE-COMMIT</code>:
+учасник, що отримав <code>PRE-COMMIT</code>, знає, що всі проголосували «так». Тому при відмові
+координатора учасники можуть <strong>самі</strong> домовитися про результат — протокол неблокуючий (за
+умови, що мережа не розпадається на ізольовані частини).</p>
+<h2 id="99">9.9. Управління паралельним доступом у розподіленому середовищі<a class="headerlink" href="#99" title="Permanent link">&para;</a></h2>
+<p>Мета та сама, що й у централізованій БД, — <strong>глобальна серіалізовність</strong>: розклад
+усіх розподілених транзакцій еквівалентний деякому послідовному. Додаткова складність —
+<strong>реплікація</strong> (усі копії мають оновлюватися узгоджено) і відсутність спільної пам'яті.</p>
+<h3 id="_8">Протоколи блокування<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Протокол</th>
+<th>Суть</th>
+<th>Переваги / недоліки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Централізований 2PL</strong></td>
+<td>єдиний менеджер блокувань на одному вузлі</td>
+<td>простий; вузьке місце і єдина точка відмови</td>
+</tr>
+<tr>
+<td><strong>2PL з основною копією</strong></td>
+<td>для кожного елемента даних є основна копія; блокування — на її вузлі</td>
+<td>менше навантаження на один вузол; інші копії можуть бути застарілими</td>
+</tr>
+<tr>
+<td><strong>Розподілений 2PL</strong></td>
+<td>кожен вузол керує блокуваннями своїх даних; для реплікованих даних — «читати одну копію, записувати всі» (ROWA)</td>
+<td>немає центрального вузла; складне виявлення взаємоблокувань</td>
+</tr>
+<tr>
+<td><strong>Блокування більшості</strong></td>
+<td>блокування елемента вважається отриманим, коли його надала більшість вузлів з копіями</td>
+<td>працює при відмові частини вузлів; більше повідомлень</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Розподілені взаємоблокування</strong> не видно на жодному окремому вузлі: T1 на вузлі «Київ»
+чекає на T2, а T2 на вузлі «Львів» чекає на T1. Методи виявлення:</p>
+<ul>
+<li><strong>централізований</strong> — усі вузли надсилають локальні графи очікувань координатору, який
+  будує глобальний граф;</li>
+<li><strong>ієрархічний</strong> — графи збираються по рівнях ієрархії вузлів;</li>
+<li><strong>розподілений</strong> (алгоритм Обермарка) — вузли обмінюються частинами графа, додаючи
+  вершину T<sub>ext</sub> для зовнішніх очікувань.</li>
+</ul>
+<p>Найпростіший практичний метод — <strong>тайм-аути</strong>: транзакція, що чекає довше заданого,
+відкочується (у SQL Server — параметр сервера <code>remote query timeout</code> та <code>SET LOCK_TIMEOUT</code>).</p>
+<h3 id="_9">Протоколи з часовими відмітками<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>Часові мітки мають бути <strong>глобально унікальними</strong> і впорядкованими. Їх формують як пару
+<strong>(локальний лічильник, ідентифікатор вузла)</strong> — у разі рівності лічильників порядок
+визначає номер вузла. Щоб лічильники різних вузлів не розходилися, вузол, отримавши
+повідомлення з більшою міткою, підсуває свій лічильник уперед (<strong>логічний годинник
+Лампорта</strong>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">-- Глобальна мітка: локальна послідовність + номер вузла</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">SEQUENCE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LocalClock</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w"> </span><span class="k">START</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">GO</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">NodeId</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">-- Київ = 1, Львів = 2</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">NEXT</span><span class="w"> </span><span class="n">VALUE</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">LocalClock</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">NodeId</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">GlobalTimestamp</span><span class="p">;</span><span class="w">   </span><span class="c1">-- 11, 21, 31 …</span>
+</code></pre></div>
+<p>Далі застосовуються ті самі правила впорядкування за мітками, що й у централізованій
+БД (<a href="../topic8/#методи-з-використанням-часових-відміток">Тема 8</a>).</p>
+<h2 id="910">9.10. Відновлення розподілених баз даних<a class="headerlink" href="#910" title="Permanent link">&para;</a></h2>
+<p>Крім збоїв централізованої системи (транзакції, системи, носія), у РБД з'являються:</p>
+<ul>
+<li><strong>втрата повідомлень</strong> — вирішується протоколами з підтвердженнями та тайм-аутами;</li>
+<li><strong>відмова лінії зв'язку</strong>;</li>
+<li><strong>відмова вузла</strong>;</li>
+<li><strong>розщеплення мережі</strong> (network partition) — вузли розпадаються на групи, що не бачать
+  одна одну. Найнебезпечніший випадок: кожна група може вважати іншу «мертвою».</li>
+</ul>
+<p>Кожен вузол має <strong>власний журнал</strong> і відновлює свої дані локально (UNDO/REDO, як у
+<a href="../topic8/#механізми-відновлення-бази-даних">Темі 8</a>). Для розподілених транзакцій
+додатково застосовується <strong>протокол відновлення 2PC</strong>: вузол, що «впав» у стані <code>ready</code>,
+після перезапуску не може сам вирішити долю транзакції і запитує рішення в координатора.</p>
+<h3 id="_10">Протоколи відновлення та проведення виборів<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>Якщо відмовив вузол-<strong>координатор</strong> (або вузол, що виконує особливу роль: менеджер
+блокувань, основна копія), решта вузлів мають <strong>обрати нового</strong>. Для цього кожному
+вузлу присвоюють унікальний номер.</p>
+<p><strong>Алгоритм «задираки»</strong> (bully algorithm, Гарсіа-Моліна):</p>
+<ol>
+<li>Вузол P, що виявив відмову координатора, надсилає повідомлення <code>ELECTION</code> усім
+   вузлам з <strong>більшими</strong> номерами.</li>
+<li>Якщо ніхто не відповів — P стає координатором і повідомляє всіх (<code>COORDINATOR</code>).</li>
+<li>Якщо відповів вузол з більшим номером (<code>OK</code>) — він перебирає вибори на себе, а P чекає
+   на повідомлення <code>COORDINATOR</code>.</li>
+<li>У підсумку координатором стає <strong>живий вузол з найбільшим номером</strong>.</li>
+</ol>
+<pre class="mermaid"><code>sequenceDiagram
+    participant N2 as Вузол 2
+    participant N3 as Вузол 3
+    participant N4 as Вузол 4
+    participant N5 as Вузол 5 (координатор)
+    Note over N5: відмова ✘
+    N2-&gt;&gt;N3: ELECTION
+    N2-&gt;&gt;N4: ELECTION
+    N2-&gt;&gt;N5: ELECTION
+    N3--&gt;&gt;N2: OK
+    N4--&gt;&gt;N2: OK
+    N3-&gt;&gt;N4: ELECTION
+    N3-&gt;&gt;N5: ELECTION
+    N4--&gt;&gt;N3: OK
+    N4-&gt;&gt;N5: ELECTION
+    Note over N4: відповіді немає → N4 — координатор
+    N4-&gt;&gt;N2: COORDINATOR
+    N4-&gt;&gt;N3: COORDINATOR</code></pre>
+<p>Інші алгоритми: <strong>кільцевий</strong> (повідомлення з номерами вузлів передається по кільцю,
+перемагає найбільший номер), а в сучасних системах — протоколи консенсусу <strong>Paxos</strong> і
+<strong>Raft</strong>, які обирають лідера і гарантують узгодженість навіть за розщеплення мережі
+(рішення приймає <strong>більшість</strong> — кворум).</p>
+<p>У SQL Server <strong>Always On Availability Groups</strong> використовують кластер Windows Server
+Failover Clustering (або Pacemaker на Linux): при відмові первинної репліки кворум
+вузлів автоматично переводить одну із синхронних вторинних реплік у роль первинної.</p>
+<h3 id="_11">Очищення після прикладів<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="p">;</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">DROP</span><span class="w"> </span><span class="n">SYNONYM</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">FinanceFragment</span><span class="p">;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">vStudentGlobal</span><span class="p">;</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">DROP</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">usp_SyncCourseReplica</span><span class="p">;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">change_tracking_tables</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">object_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OBJECT_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">'dbo.Course'</span><span class="p">))</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Course</span><span class="w"> </span><span class="n">DISABLE</span><span class="w"> </span><span class="n">CHANGE_TRACKING</span><span class="p">;</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">change_tracking_databases</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">database_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">())</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">UniversityDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">CHANGE_TRACKING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="p">;</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">UniKyiv</span><span class="p">;</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">UniLviv</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="_12">Контрольні питання<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що таке розподілена БД і розподілена СКБД? Які види прозорості має забезпечувати РСКБД?</li>
+<li>Назвіть переваги та недоліки розподілених БД.</li>
+<li>Які види фрагментації ви знаєте? Які вимоги висуваються до коректної фрагментації?</li>
+<li>Як перевірити повноту, відновлюваність і неперетинність фрагментації засобами SQL?</li>
+<li>Чим синхронна реплікація відрізняється від асинхронної? Реплікація з основною копією — від рівноправної?</li>
+<li>Порівняйте стратегії розміщення даних.</li>
+<li>Опишіть протокол двофазної фіксації. Що відбувається при відмові координатора?</li>
+<li>Чим 3PC кращий за 2PC?</li>
+<li>Як виявляють розподілені взаємоблокування?</li>
+<li>Як формуються глобально унікальні часові мітки?</li>
+<li>Опишіть алгоритм виборів «задираки».</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../topic8/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Тема 8. Управління транзакціями">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Тема 8. Управління транзакціями
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
